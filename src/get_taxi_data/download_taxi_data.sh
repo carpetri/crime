@@ -13,4 +13,11 @@ do
 done
 
 mkdir ../../data/taxi_data
-mv -r *.csv ../../data/taxi_data
+
+mkdir ../../data/taxi_data/fhv
+mkdir ../../data/taxi_data/yellow
+mkdir ../../data/taxi_data/green
+
+mv  fhv*.csv ../../data/taxi_data/fhv
+mv  yellow*.csv ../../data/taxi_data/yellow
+mv  green*.csv ../../data/taxi_data/green
