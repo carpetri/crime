@@ -3,6 +3,14 @@
 data/crime*
 data/taxi*
 
+#LATEX TRASH
+*.aux
+*.fdb_latexmk
+*.synctex.gz
+*.fls
+*.log
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
