@@ -21,4 +21,8 @@ hdfs dfs -mkdir $PROJ_HOME_HDFS/data
 ### IT TAKES A WHILE about 250GB of data
 hdfs dfs -copyFromLocal -f \
 	/home/$USER/crime/data \
-	$DATA_HOME_HDFS
+	$PROJ_HOME_HDFS
+
+
+hdfs dfs -ls -R $DATA_HOME_HDFS | awk '{print $8}' | \
+sed -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'
