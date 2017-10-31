@@ -9,7 +9,8 @@ data/taxi*
 *.synctex.gz
 *.fls
 *.log
-
+*.bbl
+*.blg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
