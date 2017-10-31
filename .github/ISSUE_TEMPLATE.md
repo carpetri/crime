@@ -1,5 +1,4 @@
-**As a** 
-**I need** 
+**We need** 
 **So that**   
 
 **Assumptions:** 
