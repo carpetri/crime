@@ -3,6 +3,7 @@
 data/crime*
 data/taxi*
 
+*~$*.xlsx
 #LATEX TRASH
 *.aux
 *.fdb_latexmk
