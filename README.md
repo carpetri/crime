@@ -53,14 +53,14 @@ This dataset includes all valid felony, misdemeanor, and violation crimes report
 The Integrated Surface Database (ISD) consists of global hourly ansynoptic observations compiled from numerous sources into a single common ASCII format and common data model. ISD's complete history of hour-by-hour readings for one user-specified weather stations
 
 
-# Software Prerequisites
+## Software Prerequisites
 
 You will need to have installed:
 
 * [csvkit](https://pypi.python.org/pypi/csvkit)
 * [`parallel`](https://www.gnu.org/software/parallel/)
 
-## Get data
+### Get data
 
 Clone this repo and get data for Taxis and Crime. The weather data is already included in the repo.
 
