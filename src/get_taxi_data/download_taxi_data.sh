@@ -6,6 +6,12 @@
 
 # cat taxi_links | parallel -j 8  wget --verbose
 
+if [ -d ../../data/taxi_data ]
+	then
+		echo 'Cleaning data folder'
+		rm -r ../../data/taxi_data
+fi
+
 for f in `cat taxi_links`
 do 
 	echo 'Getting: ' $f
@@ -27,26 +33,17 @@ mkdir ../../data/taxi_headers/fhv
 mkdir ../../data/taxi_headers/yellow
 mkdir ../../data/taxi_headers/green
 
-FOLDER=../../data/taxi_data/fhv
-for FILE in `ls $FOLDER *.csv`
-do 
-	echo 'Cleaning: ' $FILE
-	head -1 "$FOLDER/$FILE" > ../../data/taxi_headers/fhv/$FILE
-	tail -n +2 "$FOLDER/$FILE" > "$FOLDER/$FILE.tmp" && mv "$FOLDER/$FILE.tmp" "$FOLDER/$FILE"
+for t in yellow green fhv
+do
+	FOLDER=../../data/taxi_data/$t
+	cd $FOLDER
+	for FILE in `ls *.csv`
+	do 
+		echo 'Cleaning: ' $FILE
+		head -1 "$FILE" > ../../taxi_headers/$t/$FILE
+		tail -n +3 "$FILE" > "$FILE.tmp" && mv "$FILE.tmp" "$FILE"
+	done
+	cd ../../../src/get_taxi_data/
 done
 
-FOLDER=../../data/taxi_data/yellow
-for FILE in `ls $FOLDER *.csv`
-do 
-	echo 'Cleaning: ' $FILE
-	head -1 "$FOLDER/$FILE" > ../../data/taxi_headers/yellow/$FILE
-	tail -n +3 "$FOLDER/$FILE" > "$FOLDER/$FILE.tmp" && mv "$FOLDER/$FILE.tmp" "$FOLDER/$FILE"
-done
 
-FOLDER=../../data/taxi_data/green
-for FILE in `ls $FOLDER *.csv`
-do 
-	echo 'Cleaning: ' $FILE
-	head -1 "$FOLDER/$FILE" > ../../data/taxi_headers/green/$FILE
-	tail -n +3 "$FOLDER/$FILE" > "$FOLDER/$FILE.tmp" && mv "$FOLDER/$FILE.tmp" "$FOLDER/$FILE"
-done
