@@ -6,7 +6,7 @@ DATA_HOME_HDFS=$PROJ_HOME_HDFS/data
 
 
 ## CLEAN ALL DATA IF ANY
-hdf dfs -rm -r $DATA_HOME_HDFS
+hdfs dfs -rm -r $DATA_HOME_HDFS
 
 # SETUP FOLDERS
 hdfs dfs -mkdir /user/$USER/rbda
