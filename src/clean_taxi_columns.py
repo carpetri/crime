@@ -3,10 +3,27 @@ from pyspark.sql import Row
 from pyspark.sql.functions import *
 from datetime import datetime, tzinfo
 import os
+from osgeo import *
+from osgeo import ogr
+import sys
 
-#
-if not sc:
-	sc = SparkContext()
+# read your shapefile
+drv    = ogr.GetDriverByName('ESRI Shapefile')
+ds_in  = drv.Open("../data/taxi_zones/taxi_zones_clean.shp")
+lyr_in = ds_in.GetLayer(0)
+geo_ref = lyr_in.GetSpatialRef()
+idx_reg = lyr_in.GetLayerDefn().GetFieldIndex("LocationID")
+
+def check_zone(lon, lat):
+	# [lon,lat,z]=ctran.TransformPoint(lon,lat)
+	pt = ogr.Geometry(ogr.wkbPoint)
+	pt.SetPoint_2D(0, lon, lat)
+	lyr_in.SetSpatialFilter(pt)
+	for feat_in in lyr_in:
+	    loc = feat_in.GetFieldAsString(idx_reg)
+	    if loc:
+	    	return loc
+
 
 # FOR DATA before 2015
 
@@ -110,6 +127,7 @@ def clean_payment_type(x):
 		'NO ':"No charge",
 		'NOC':"No charge",
 		'NA ':"Unknown",
+		'UNK':"Unknown",
 	}
 	return pay_dict[x.upper()]
 
@@ -173,6 +191,8 @@ def to_row(l):
 		    to_double(l[16]), #tolls_amount
 		    0.0, #improvement_surcharge
 		    to_double(l[17]), #total_amount
+		    -1, #PICKUP ZONE
+			-1, #DROP ZONE
 			)
 		return out
 	
@@ -197,6 +217,8 @@ def to_row(l):
 		    to_double(l[16]), #tolls_amount
 		    clean_imp_sur(17), #improvement_surcharge
 		    to_double(l[18]), #total_amount
+    		-1, #PICKUP ZONE
+			-1, #DROP ZONE
 			)
 		return out
 
@@ -221,6 +243,8 @@ def to_row(l):
 		    to_double(l[16]), #tolls_amount
 		    clean_imp_sur(17), #improvement_surcharge
 		    to_double(l[18]), #total_amount
+    		-1, #PICKUP ZONE
+			-1, #DROP ZONE
 			)
 		return out
 	else:
@@ -310,7 +334,8 @@ def filter_rows(l):
 	return False
 
 
-for year in xrange(2009,2015):
+# for year in xrange(2009,201):
+for year in xrange(2009,2016):
 	for month in xrange(1,13):
 		file_name = '/user/%s/rbda/crime/data/taxi_data/yellow/yellow_tripdata_%d-%02d.csv' % (user,year,month)
 
