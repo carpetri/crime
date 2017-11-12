@@ -47,3 +47,9 @@ do
 done
 
 
+#taxi_zones
+wget https://s3.amazonaws.com/nyc-tlc/misc/taxi_zones.zip 
+mkdir ../../data/taxi_zones
+unzip -d ../../data/taxi_zones taxi_zones.zip
+rm *.zip
+
