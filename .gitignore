@@ -3,6 +3,10 @@
 data/crime*
 data/taxi_data*
 
+#SPARK TRASH
+*metastore_db*
+*derby*
+
 *~$*.xlsx
 #LATEX TRASH
 *.aux
