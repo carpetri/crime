@@ -1,0 +1,1 @@
+ogr2ogr ../data/taxi_zones/taxi_zones_clean.shp ../data/taxi_zones/taxi_zones.shp  -t_srs "+proj=longlat +ellps=WGS84 +no_defs +towgs84=0,0,0"
