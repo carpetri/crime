@@ -16,8 +16,8 @@ wget --verbose "https://data.cityofnewyork.us/api/views/5uac-w243/rows.csv?acces
 mkdir  ../../data/crime_header
 head -1  ../../data/crime/nypd_complaint_hist.csv > ../../data/crime_header/crimes_header.csv
 
-FILE = "../../data/crime/nypd_complaint_hist.csv"
+FILE="../../data/crime/nypd_complaint_hist.csv"
 tail -n +2 $FILE > $FILE.tmp && mv $FILE.tmp $FILE
 
-FILE = "../../data/crime/nypd_complaint_current.csv"
+FILE="../../data/crime/nypd_complaint_current.csv"
 tail -n +2 $FILE > $FILE.tmp && mv $FILE.tmp $FILE
