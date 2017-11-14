@@ -24,5 +24,8 @@ module load xz/5.2.2
 module load pygdal/2.2.0.3
 module load zlib/1.2.8
 
-spark-submit clean_taxi_columns.py
+spark-submit \
+	--master yarn \
+	clean_taxi_columns.py &
+
 
