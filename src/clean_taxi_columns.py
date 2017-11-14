@@ -9,7 +9,7 @@ from datetime import datetime
 # from osgeo import ogr
 import numpy as np
 import pandas as pd
-
+sc= SparkContext()
 # This part is not working in spark yet. We might have to do it after we have the DF.
 
 #read your shapefile
