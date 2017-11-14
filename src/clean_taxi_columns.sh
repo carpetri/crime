@@ -25,7 +25,9 @@ module load pygdal/2.2.0.3
 module load zlib/1.2.8
 
 spark-submit \
-	--master yarn \
+	--conf spark.num.executors=100 \
+	--conf spark.driver.memory=64g \
+	--conf spark.executor.memory=32g \
 	clean_taxi_columns.py &
 
 
