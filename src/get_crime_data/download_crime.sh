@@ -13,7 +13,8 @@ wget "https://data.cityofnewyork.us/api/views/qgea-i56i/files/82bbfb3b-e81c-4371
 #https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Current-YTD/5uac-w243
 wget --verbose "https://data.cityofnewyork.us/api/views/5uac-w243/rows.csv?accessType=DOWNLOAD" -O ../../data/crime/nypd_complaint_current.csv
 
-
+mkdir  ../../data/crime_header
+head -1  ../../data/crime/nypd_complaint_hist.csv > ../../data/crime_header/crimes_header.csv
 
 
 FILE = "../../data/crime/nypd_complaint_hist.csv"
