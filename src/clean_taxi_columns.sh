@@ -1,13 +1,13 @@
 #!/bin/bash
-if [ -d ../data/taxi_data_clean ]
-	then
-		echo 'Cleaning data folder'
-		rm -r ../data/taxi_data_clean
-fi
+# if [ -d ../data/taxi_data_clean ]
+# 	then
+# 		echo 'Cleaning data folder'
+# 		rm -r ../data/taxi_data_clean
+# fi
 
-CFOLDER=../data/taxi_data_clean
-mkdir $CFOLDER
-mkdir $CFOLDER/yellow
+# CFOLDER=../data/taxi_data_clean
+# mkdir $CFOLDER
+# mkdir $CFOLDER/yellow
 
 #Make sure that you have the taxi_zones
 
@@ -24,4 +24,5 @@ module load xz/5.2.2
 module load pygdal/2.2.0.3
 module load zlib/1.2.8
 
-spark-submit
+spark-submit clean_taxi_columns.py
+
