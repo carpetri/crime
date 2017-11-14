@@ -5,8 +5,8 @@ from pyspark.sql import Row, Column
 from pyspark.sql.functions import *
 from pyspark.sql.functions import udf
 from datetime import datetime
-from osgeo import *
-from osgeo import ogr
+# from osgeo import *
+# from osgeo import ogr
 import numpy as np
 import pandas as pd
 
