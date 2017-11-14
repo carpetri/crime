@@ -1,23 +1,32 @@
 import os
 import sys
 from pyspark.sql.types import *
-from pyspark.sql import Row
+from pyspark.sql import Row, Column
 from pyspark.sql.functions import *
+from pyspark.sql.functions import udf
 from datetime import datetime
 from osgeo import *
 from osgeo import ogr
+import numpy as np
+import pandas as pd
 
 # This part is not working in spark yet. We might have to do it after we have the DF.
 
-# # read your shapefile
+#read your shapefile
+#DOES NOT WORK
 # drv    = ogr.GetDriverByName('ESRI Shapefile')
 # ds_in  = drv.Open("../data/taxi_zones/taxi_zones_clean.shp")
 # lyr_in = ds_in.GetLayer(0)
 # geo_ref = lyr_in.GetSpatialRef()
 # idx_reg = lyr_in.GetLayerDefn().GetFieldIndex("LocationID")
 
-# def check_zone(lon, lat):
+# def check_zone(lon=-73.991957, lat=40.721567):
 # 	"""Checks the taxi zone for a lon,lat"""
+# 	drv    = ogr.GetDriverByName('ESRI Shapefile')
+# 	ds_in  = drv.Open("../data/taxi_zones/taxi_zones_clean.shp")
+# 	lyr_in = ds_in.GetLayer(0)
+# 	geo_ref = lyr_in.GetSpatialRef()
+# 	idx_reg = lyr_in.GetLayerDefn().GetFieldIndex("LocationID")
 # 	pt = ogr.Geometry(ogr.wkbPoint)
 # 	pt.SetPoint_2D(0, lon, lat)
 # 	lyr_in.SetSpatialFilter(pt)
@@ -26,8 +35,15 @@ from osgeo import ogr
 # 	    if loc:
 # 	    	return loc
 
+# pickup_longitude=-73.991957
+# pickup_latitude=40.721567
 
-# This is the schema for the rides
+# get_zone_id(pickup_longitude,pickup_longitude)
+# check_zone_udf  = udf( lambda x,y: check_zone(x,y) ,StringType())
+
+# zones = pd.read_csv('../data/taxi_zones/taxi_zones_clean.csv',sep=' ',
+# 	header=None, names = ['lon','lat','LocationID'])
+
 schema = StructType([
 	StructField("vendor_name",StringType(), True),
 	StructField("pickup_datetime",TimestampType(), True),
@@ -53,12 +69,10 @@ schema = StructType([
 	StructField("dropoff_location_id",StringType(), True),
 ])
 
-
 user = os. environ['USER']
 if user not in ['cpa253','vaa238','vm1370']:
 	user = 'cpa253'
 
-#NOT FOR 2009
 def clean_vendor_name(x):
 	if x in ['VTS','CMT','DDS']:
 		return x
@@ -71,14 +85,14 @@ def to_date(x):
 def clean_passenger_count(x):
 	out = int(x)
 	if out > 9:
-		return -1
+		return None
 	else:
 		return out
 
 def clean_rate_code(x):
 	try:
 		if int(x) not in xrange(1,7):
-			return 'Empty'
+			return None
 		else:
 			rate_code_dict ={
 				"1":"Standard rate",
@@ -90,14 +104,14 @@ def clean_rate_code(x):
 				}
 		return rate_code_dict[x]
 	except ValueError:
-		return 'Empty'
+		return None
 
 def clean_store_flag(x):
 	flag_dict= {
-	' ':'Empty',
-	'':'Empty',
-	'*':'Empty',
-	'2':'Empty',
+	' ': None,
+	'':None,
+	'*':None,
+	'2':None,
 	"1":"Stored",
 	"Y":"Stored",
 	"0":"Not a stored",
@@ -136,17 +150,64 @@ def clean_payment_type(x):
 	return pay_dict[x.upper()]
 
 def to_double(x):
-	if x != '':
+	try:
 		return float(x)
-	else:
-		return float(0)
+	except ValueError:
+		return None
 
 
 def clean_imp_sur(x):
-	if year < 2015:
+	if y < 2015:
 		return 0.0
 	else:
 		return float(x)
+
+zones_file = '/user/%s/rbda/crime/data/taxi_zones/taxi_zones_clean.csv' % (user)
+zones_rdd = sc.textFile(zones_file).\
+	map(lambda x: x.split(' ')).\
+	map(lambda (lon,lat,LocationID): (1,lon,lat,LocationID))
+zones = pd.read_csv('../data/taxi_zones/taxi_zones_clean.csv', sep =' ', names=['lon','lat','LocationID'])
+
+def get_zone_id(lon,lat, pd_data):
+	if not lon:
+		return None
+	if not lon:
+		return None
+	pd_data['dist'] =  (pd_data.lon - lon)**2 + (pd_data.lat - lat)**2
+	ind=pd_data.idxmin(axis=0)['dist']
+	out = pd_data.LocationID[ind]
+	return str(out)
+
+# get_zone_broad=sc.broadcast(get_zone_id)
+zones_broad=sc.broadcast(zones)
+
+# def get_zone_id(lon,lat):
+# 	if not lon:
+# 		return None
+# 	if not lon:
+# 		return None
+# 	dist = zones.map(lambda (lo, la, LocationID): 
+# 	    ( ( float(lo) - lon )**2 +  (float(la) - lat)**2 , LocationID ) ).min(lambda x: x[0])
+
+# 	# for row in zones.itertuples():
+# 	# 	point_y = np.array( (row.lon,row.lat) )
+# 	# 	dist = np.linalg.norm(point - point_y)
+# 	# 	if( dist < min_dist):
+# 	# 		min_dist = dist
+# 	# 		min_loc = row.LocationID
+# 	return dist[1]
+
+
+# pickup_longitude=-73.991957
+# pickup_latitude=40.721567
+# get_zone_id(pickup_longitude,pickup_latitude)
+# get_zone_id(-73.901408 ,40.906096)
+ 
+# time( get_zone_id(pickup_longitude,pickup_latitude) )
+
+# This is the schem
+
+
 
 def to_row(l):
 	"""This function filters the rows form the csv that have an incorrect number of columns and returns a Row for spark DataFrame """
@@ -174,7 +235,7 @@ def to_row(l):
 		"dropoff_location_id",
 	    )
 
-	if year <= 2014:
+	if y <= 2014:
 		out = r(
 			clean_vendor_name(l[0]), #vendor_name
 		    to_date(l[1]), #pickup_datetime 
@@ -195,12 +256,14 @@ def to_row(l):
 		    to_double(l[16]), #tolls_amount
 		    0.0, #improvement_surcharge
 		    to_double(l[17]), #total_amount
-		    -1, #PICKUP ZONE
-			-1, #DROP ZONE
+			# None, 
+			# None,
+			get_zone_id(to_double(l[5]),to_double(l[6]), zones_broad.value ),
+			get_zone_id(to_double(l[9]),to_double(l[10]),zones_broad.value),
 			)
 		return out
 	
-	if year == 2015:
+	if y == 2015:
 		out = r(
 			clean_vendor_name(l[0]), #vendor_name
 		    to_date(l[1]), #pickup_datetime 
@@ -221,12 +284,12 @@ def to_row(l):
 		    to_double(l[16]), #tolls_amount
 		    clean_imp_sur(17), #improvement_surcharge
 		    to_double(l[18]), #total_amount
-    		-1, #PICKUP ZONE
-			-1, #DROP ZONE
+			None, 
+			None,
 			)
 		return out
 
-	if year == 2016 and month <= 6:
+	if y == 2016 and m <= 6:
 		out = r(
 			clean_vendor_name(l[0]), #vendor_name
 		    to_date(l[1]), #pickup_datetime 
@@ -247,8 +310,8 @@ def to_row(l):
 		    to_double(l[16]), #tolls_amount
 		    clean_imp_sur(17), #improvement_surcharge
 		    to_double(l[18]), #total_amount
-    		-1, #PICKUP ZONE
-			-1, #DROP ZONE
+			None, #
+			None,
 			)
 		return out
 	else:
@@ -258,12 +321,12 @@ def to_row(l):
 		    to_date(l[2]), #dropoff_datetime 
 		    clean_passenger_count(l[3]), #passenger_count 
 		    to_double(l[4]),  #trip_distance 
-		    0.0,# to_double(l[5]),  #pickup_longitude 
-		    0.0,# to_double(l[6]),  #pickup_latitude
+		    None,# to_double(l[5]),  #pickup_longitude 
+		    None,# to_double(l[6]),  #pickup_latitude
 		    clean_rate_code(l[5]),  #rate_code
 		    clean_store_flag(l[6]),  #store_and_fwd_flag
-		    0.0,# to_double(l[9]),  #dropoff_longitude
-		    0.0,# to_double(l[10]), #dropoff_latitude
+		    None,# to_double(l[9]),  #dropoff_longitude
+		    None,# to_double(l[10]), #dropoff_latitude
 		    clean_payment_type(l[9]), #payment_type
 		    to_double(l[10]), #fare_amount
 		    to_double(l[11]), #extra
@@ -278,29 +341,31 @@ def to_row(l):
 		return out
 
 def filter_rows(l):
-	if year < 2015 and len(l)==18:
+	if y < 2015 and len(l)==18:
 		return True
 
-	if year == 2015 and len(l)==19:
+	if y == 2015 and len(l)==19:
 		return True
 
-	if year == 2016 and month <= 6 and len(l)== 19:
+	if y == 2016 and m <= 6 and len(l)== 19:
 		return True
 
-	if year == 2016 and month > 6 and len(l)== 17:
+	if y == 2016 and m > 6 and len(l)== 17:
 		return True
 
-	if year == 2017 and len(l)== 17:
+	if y == 2017 and len(l)== 17:
 		return True
 
 	return False
 
+# udf_get_zone_id = udf(lambda x, y: get_zone_id(x,y) , StringType())
+
 ## Clean 2009 - 2016
-for year in xrange(2009,2017):
-	for month in xrange(1,13):
+for y in xrange(2009,2017):
+	for m in xrange(1,13):
 		
 		# Get the file
-		file_name = '/user/%s/rbda/crime/data/taxi_data/yellow/yellow_tripdata_%d-%02d.csv' % (user,year,month)
+		file_name = '/user/%s/rbda/crime/data/taxi_data/yellow/yellow_tripdata_%d-%02d.csv' % (user,y,m)
 
 		print "Cleaning file:\n\t%s" % file_name
 
@@ -314,15 +379,16 @@ for year in xrange(2009,2017):
 		df = sqlContext.createDataFrame(dat,schema)
 		
 		# Output to save as partition table
-		output_folder = '/user/%s/rbda/crime/data/taxi_data_clean/yellow/year=%d/month=%02d' %(user,year,month)
+		output_folder = '/user/%s/rbda/crime/data/taxi_data_clean/yellow/year=%d/month=%02d' %(user,y,m)
+
 		print 'Saving to hdfs://%s' % output_folder
 		df.write.mode('overwrite').save(output_folder)
 
 ## Clean current year's data
-for year in xrange(2017,2018):
-	for month in xrange(1,7):
+for y in xrange(2017,2018):
+	for m in xrange(1,7):
 		# Get the file
-		file_name = '/user/%s/rbda/crime/data/taxi_data/yellow/yellow_tripdata_%d-%02d.csv' % (user,year,month)
+		file_name = '/user/%s/rbda/crime/data/taxi_data/yellow/yellow_tripdata_%d-%02d.csv' % (user,y,m)
 
 		print "Cleaning file:\n\t%s" % file_name
 
@@ -330,12 +396,12 @@ for year in xrange(2017,2018):
 		dat = sc.textFile(file_name).\
 		map(lambda l: l.split(",")).\
 		filter(filter_rows).\
-		map( lambda l: to_row(l) )
-
+		map( lambda l: to_row(l)  )
+		
 		# Create a DF with the schema.
 		df = sqlContext.createDataFrame(dat,schema)
-		
+
 		# Output to save as partition table
-		output_folder = '/user/%s/rbda/crime/data/taxi_data_clean/yellow/year=%d/month=%02d' %(user,year,month)
+		output_folder = '/user/%s/rbda/crime/data/taxi_data_clean/yellow/year=%d/month=%02d' %(user,y,m)
 		print 'Saving to hdfs://%s' % output_folder
 		df.write.mode('overwrite').save(output_folder)
