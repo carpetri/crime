@@ -13,10 +13,8 @@ from pyspark.sql import Row, Column
 from pyspark.sql.functions import *
 from pyspark.sql.functions import udf
 
-if not sc:
-	sc= SparkContext()
-if not sqlContext:
-	sqlContext = SQLContext(sc)
+sc= SparkContext()
+sqlContext = SQLContext(sc)
 
 schema = StructType([
 	StructField("complaint_id",StringType(), True),
@@ -38,7 +36,7 @@ schema = StructType([
 	StructField("nycha",StringType(), True),
 	StructField("latitude",StringType(), True),	
 	StructField("longitude",StringType(), True),
-	StructField("taxi_zone_id",StringType(), True),
+	# StructField("taxi_zone_id",StringType(), True),
 ])
 
 #Get USER
@@ -54,31 +52,34 @@ def parse_csv(line):
     readCSV = csv.reader(f, delimiter=',')
     return [row for row in readCSV]
 
-zones = pd.read_csv('../data/taxi_zones/taxi_zones_clean.csv', sep =' ', names=['lon','lat','LocationID'])
+# zones = pd.read_csv('../data/taxi_zones/taxi_zones_clean.csv', sep =' ', names=['lon','lat','LocationID'])
 
-def get_zone_id(lon,lat, pd_data):
-	if not lon:
-		return None
-	if not lat:
-		return None
-	pd_data['dist'] =  (pd_data.lon - float(lon))**2 + (pd_data.lat - float(lat))**2
-	ind=pd_data.idxmin(axis=0)['dist']
-	out = pd_data.LocationID[ind]
-	return str(out)
-
-zones_broad=sc.broadcast(zones)
-
-
+# def get_zone_id(lon,lat, pd_data):
+# 	if not lon:
+# 		return None
+# 	if not lat:
+# 		return None
+# 	pd_data['dist'] =  (pd_data.lon - float(lon))**2 + (pd_data.lat - float(lat))**2
+# 	ind=pd_data.idxmin(axis=0)['dist']
+# 	out = pd_data.LocationID[ind]
+# 	return str(out)
+# zones_broad=sc.broadcast(zones)
 
 def clean_dates(d,t):
-	if d  and t and d!= '' and t!= '':
-		if t[0:2] == '24':
-			t='00'+t[2:]
-		if int(d[6:8] ) <= 10 and int(d[8:10]) < 18:
-			d = d[0:6] + '20' + d[8:10]
-		return datetime.strptime("%s %s" % (d,t), '%m/%d/%Y %H:%M:%S')
-	else:
-		return datetime.strptime("2017" , '%Y')
+	if d=='':
+		return None
+
+	if t=='':
+		return None	
+
+	if t[0:2] == '24':
+		t='00'+t[2:]
+	
+	if int(d[6:8] ) <= 10 and int(d[8:10]) < 18:
+		d = d[0:6] + '20' + d[8:10]
+
+	return datetime.strptime("%s %s" % (d,t), '%m/%d/%Y %H:%M:%S')
+		
 
 def clean_empty(x):
 	if x == '':
@@ -107,7 +108,8 @@ def parse_line(l):
 		"nycha",
 		"latitude",
 		"longitude",
-		"taxi_zone_id")
+		# "taxi_zone_id",
+		)
 
 	return r(
 	  l[0], # complaint_id
@@ -129,7 +131,8 @@ def parse_line(l):
 	  clean_empty(l[18]), #park
 	  clean_empty(l[21]), # latitude
 	  clean_empty(l[22]), #longitude
-	  get_zone_id(l[21],l[22],zones_broad.value), #taxi_zone
+	  # get_zone_id(l[21],l[22],zones_broad.value), #taxi_zone
+	  # None
 	  )
 
 
@@ -143,6 +146,16 @@ def filter_dates(x):
 	else:
 		return True
 
+zones_file = '/user/%s/rbda/crime/data/taxi_zones/taxi_zones_clean.csv' % (user)
+
+zones_rdd = sc.textFile(zones_file).\
+	map(lambda x: x.split(' ')).\
+	map(lambda (lon,lat,LocationID): 
+	    Row(lon=float(lon),
+	        lat=float(lat),
+	        taxi_zones_id=LocationID)).toDF()
+
+
 dat = sc.textFile(crimes_folder).\
 flatMap(parse_csv).\
 filter(lambda l: filter_dates(l[1]) and 
@@ -150,9 +163,16 @@ filter(lambda l: filter_dates(l[1]) and
 map(parse_line).\
 toDF(schema)
 
-# map(lambda l: clean_dates(l[3],l[4]).year ).distinct().collect()
+crimes = zones_rdd.join(dat.select(['complaint_id','longitude','latitude']))
 
-output_folder = '/user/%s/rbda/crime/data/crime_clean' %(user)
+crimes_d = crimes.withColumn('dist', (crimes.longitude -crimes.lon)**2 + (crimes.latitude -crimes.lat)**2 ).select('complaint_id','dist','taxi_zones_id')
+
+# crimes_d_fil= crimes_d.filter(crimes_d.complaint_id =='491504201')
+crimes_with_id=crimes_d.groupBy('complaint_id').min('dist').show()
+# 4258132 * 15000 = 63,871,980,000 ish
+
+
+output_folder = '/user/%s/rbda/crime/data/crime_data_clean' %(user)
 
 print 'Saving to hdfs://%s' % output_folder
 dat.write.mode('overwrite').save(output_folder)
