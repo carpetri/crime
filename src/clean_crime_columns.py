@@ -150,7 +150,7 @@ toDF(schema)
 
 # map(lambda l: clean_dates(l[3],l[4]).year ).distinct().collect()
 
-output_folder = '/user/%s/rbda/crime/data/crime_data_clean' %(user)
+output_folder = '/user/%s/rbda/crime/data/crime_clean' %(user)
 
 print 'Saving to hdfs://%s' % output_folder
 dat.write.mode('overwrite').save(output_folder)
