@@ -61,7 +61,7 @@ def get_zone_id(lon,lat, pd_data):
 		return None
 	if not lat:
 		return None
-	pd_data['dist'] =  (pd_data.lon - float(lon))**2 + (pd_data.lat - float(lat))**2
+	pd_data['dist'] =  (pd_data.lon - float(lon) )**2 + (pd_data.lat - float(lat))**2
 	ind=pd_data.idxmin(axis=0)['dist']
 	out = pd_data.LocationID[ind]
 	return str(out)
@@ -129,7 +129,7 @@ def parse_line(l):
 	  clean_empty(l[18]), #park
 	  clean_empty(l[21]), # latitude
 	  clean_empty(l[22]), #longitude
-	  get_zone_id(l[21],l[22],zones_broad.value), #taxi_zone
+	  get_zone_id(l[22],l[21],zones_broad.value), #taxi_zone
 	  )
 
 
