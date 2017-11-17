@@ -13,10 +13,10 @@ from pyspark.sql import Row, Column
 from pyspark.sql.functions import *
 from pyspark.sql.functions import udf
 
-if not sc:
-	sc= SparkContext()
-if not sqlContext:
-	sqlContext = SQLContext(sc)
+# if not sc:
+sc= SparkContext()
+# if not sqlContext:
+sqlContext = SQLContext(sc)
 
 schema = StructType([
 	StructField("complaint_id",StringType(), True),
