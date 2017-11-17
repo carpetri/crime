@@ -17,7 +17,6 @@ import pandas as pd
 sc= SparkContext()
 sqlContext = SQLContext(sc)
 # This part is not working in spark yet. We might have to do it after we have the DF.
-
 #read your shapefile
 #DOES NOT WORK
 # drv    = ogr.GetDriverByName('ESRI Shapefile')
@@ -36,13 +35,50 @@ sqlContext = SQLContext(sc)
 # 	pt = ogr.Geometry(ogr.wkbPoint)
 # 	pt.SetPoint_2D(0, lon, lat)
 # 	lyr_in.SetSpatialFilter(pt)
-# 	for feat_in in lyr_in:
-# 	    loc = feat_in.GetFieldAsString(idx_reg)
-# 	    if loc:
-# 	    	return loc
+# for feat_in in lyr_in:
+#     print feat_in.GetFieldAsString(idx_reg)
+# # 	    if loc:
+# # 	    	return loc
 
-# pickup_longitude=-73.991957
-# pickup_latitude=40.721567
+# # pickup_longitude=-73.991957
+# # pickup_latitude=40.721567
+
+# # 
+# #
+# # print "%f,%f" % (point.GetX(), point.GetY())
+
+
+
+# taxi_shp='../data/taxi_zones/taxi_zones_clean.shp'
+# drv    = ogr.GetDriverByName('ESRI Shapefile')
+# ds_in  = drv.Open(taxi_shp)
+# lyr_in = ds_in.GetLayer(0)
+# geo_ref = lyr_in.GetSpatialRef()
+# idx_reg = lyr_in.GetLayerDefn().GetFieldIndex("LocationID")
+# # dstlayer = dstshp.CreateLayer('0',geom_type=ogr.wkbPolygon)
+
+
+# # geojson = """{"type":"Point","coordinates":[-73.991957,40.721567]}"""
+# # point = ogr.CreateGeometryFromJson(geojson)
+
+# # 	pt.SetPoint_2D(0, lon, lat)
+# # 	lyr_in.SetSpatialFilter(pt)
+
+# pt = ogr.Geometry(ogr.wkbPoint)
+# pt.SetPoint_2D(0, -73.991957,40.721567)
+
+# # lyr_in.SetSpatialFilter(pt)
+
+# lyr_in.Intersection(pt)
+
+# # for feat_in in lyr_in:
+# #     print feat_in.Intersection(pt)
+
+
+# layer = ogr.Geometry(3)
+# intersection = layer.Intersection(pt)
+
+
 
 # get_zone_id(pickup_longitude,pickup_longitude)
 # check_zone_udf  = udf( lambda x,y: check_zone(x,y) ,StringType())
@@ -388,7 +424,7 @@ for y in xrange(2009,2017):
 		output_folder = '/user/%s/rbda/crime/data/taxi_data_clean/yellow/year=%d/month=%02d' %(user,y,m)
 
 		print 'Saving to hdfs://%s' % output_folder
-		df.write.mode('overwrite').save(output_folder)
+		df.write.mode('ignore').save(output_folder)
 
 ## Clean current year's data
 for y in xrange(2017,2018):
@@ -410,4 +446,4 @@ for y in xrange(2017,2018):
 		# Output to save as partition table
 		output_folder = '/user/%s/rbda/crime/data/taxi_data_clean/yellow/year=%d/month=%02d' %(user,y,m)
 		print 'Saving to hdfs://%s' % output_folder
-		df.write.mode('overwrite').save(output_folder)
+		df.write.mode('ignore').save(output_folder)
