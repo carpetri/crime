@@ -355,8 +355,8 @@ def to_row(l):
 			get_zone_id(to_double(l[5]),to_double(l[6]), zones_broad.value ),
 			get_zone_id(to_double(l[9]),to_double(l[10]),zones_broad.value),
 			)
-		return out
-	else:
+		return out 
+	else: 
 		out = r(
 			clean_vendor_name(l[0]), #vendor_name
 		    to_date(l[1]), #pickup_datetime 
@@ -392,7 +392,7 @@ def filter_rows(l):
 	if y == 2016 and m <= 6 and len(l)== 19:
 		return True
 
-	if y == 2016 and m > 6 and len(l)== 17:
+	if y == 2016 and m > 6 and len(l)== 19:
 		return True
 
 	if y == 2017 and len(l)== 17:
