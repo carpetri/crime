@@ -324,7 +324,7 @@ def to_row(l):
 		    to_double(l[14]), #mta_tax
 		    to_double(l[15]), #tip_amount
 		    to_double(l[16]), #tolls_amount
-		    clean_imp_sur(17), #improvement_surcharge
+		    clean_imp_sur(l[17]), #improvement_surcharge
 		    to_double(l[18]), #total_amount
 			get_zone_id(to_double(l[5]),to_double(l[6]), zones_broad.value ),
 			get_zone_id(to_double(l[9]),to_double(l[10]),zones_broad.value),
@@ -350,7 +350,7 @@ def to_row(l):
 		    to_double(l[14]), #mta_tax
 		    to_double(l[15]), #tip_amount
 		    to_double(l[16]), #tolls_amount
-		    clean_imp_sur(17), #improvement_surcharge
+		    clean_imp_sur(l[17]), #improvement_surcharge
 		    to_double(l[18]), #total_amount
 			get_zone_id(to_double(l[5]),to_double(l[6]), zones_broad.value ),
 			get_zone_id(to_double(l[9]),to_double(l[10]),zones_broad.value),
@@ -375,7 +375,7 @@ def to_row(l):
 		    to_double(l[12]), #mta_tax
 		    to_double(l[13]), #tip_amount
 		    to_double(l[14]), #tolls_amount
-		    clean_imp_sur(15), #improvement_surcharge
+		    clean_imp_sur(l[15]), #improvement_surcharge
 		    to_double(l[16]), #total_amount
 		    l[7], #PICK ID
 			l[8], #DROP ID
