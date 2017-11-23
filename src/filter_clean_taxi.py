@@ -5,6 +5,9 @@ from pyspark.sql.types import *
 from pyspark.sql import Row, Column
 from pyspark.sql.functions import *
 from datetime import datetime
+from pyspark import SparkConf, SparkContext
+from pyspark.sql import SQLContext
+from pyspark.sql.functions import udf
 
 user = os. environ['USER']
 if user not in ['cpa253','vaa238','vm1370']:
@@ -12,7 +15,7 @@ if user not in ['cpa253','vaa238','vm1370']:
 
 
 
-sc= SparkContext()
+sc = SparkContext()
 sqlContext = SQLContext(sc)
 
 # y= 2016
