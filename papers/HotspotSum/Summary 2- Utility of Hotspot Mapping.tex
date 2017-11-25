@@ -1,0 +1,55 @@
+\documentclass[10pt,letterpaper,english]{article}
+%\usepackage{babel}
+%\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[psamsfonts]{amssymb}
+\usepackage{latexsym}
+%\usepackage{color}
+%\usepackage{graphics}
+\usepackage{enumerate}
+\usepackage{amstext}
+\usepackage{url}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{hyperref} 
+\usepackage{geometry} 
+\geometry{letterpaper}
+\usepackage{setspace}
+\setstretch{1}
+
+% \renewcommand{\headrulewidth}{.5pt} 
+% \renewcommand{\footrulewidth}{.5pt}
+\pagenumbering{arabic}
+
+% \pagestyle{fancy} 
+% \fancyhead[R]{ {\footnotesize \scshape RBDA FALL 17}}
+% % \fancyhead[C]{ \footnotesize  cpa253 / }
+% \fancyhead[L]{\footnotesize \scshape  NYU }
+
+% \fancyfoot[L]{ \footnotesize  Last update: \today}
+
+% \fancyfoot[R]{ \footnotesize  Page \thepage \ of \pageref{LastPage}}
+
+\begin{document}
+\section*{Title}
+The Utility of Hotspot Mapping for Predicting Spatial Patterns of Crime
+
+\section*{Abstract}
+
+Hotspot mapping is a popular analytical technique that is used to help identify where to target police and crime reduction resources. In essence, hotspot mapping is used as a basic form of crime prediction, relying on retrospective data to identify the areas of high concentrations of crime and where policing and other crime reduction resources should be deployed. A number of different mapping techniques are used for identifying hotspots of crime – point mapping, thematic mapping of geographic areas (e.g. Census areas), spatial ellipses, grid thematic mapping and kernel density estimation (KDE). Several research studies have discussed the use of these methods for identifying hotspots of crime, usually based on their ease of use and ability to spatially interpret the location, size, shape and orientation of clusters of crime incidents. Yet surprising, very little research has compared how hotspot mapping techniques can accurately predict where crimes will occur in the future. This research uses crime data for a period before a fi xed date (that has already passed) to generate hotspot maps, and test their accuracy for predicting where crimes will occur next. Hotspot mapping accuracy is compared in relation to the mapping technique that is used to identify concentrations of crime events (thematic mapping of Census Output Areas, spatial ellipses, grid thematic mapping, and KDE) and by crime type – four crime types are compared (burglary, street crime, theft from vehicles and theft of vehicles). The results from this research indicate that crime hotspot mapping prediction abilities differ between the different techniques and differ by crime type. KDE was the technique that consistently outperformed the others, while street crime hotspot maps were consistently better at predicting where future street crime would occur when compared to results for the hotspot maps of different crime types. The research offers the opportunity to benchmark comparative research of other techniques and other crime types, including comparisons between advanced spatial analysis techniques and prediction mapping methods. Understanding how hotspot mapping can predict spatial patterns of crime and how different mapping methods compare will help to better inform their application in practice. 
+
+\section*{Link}
+https://www.e-education.psu.edu/geog884/sites/www.e-education.psu.edu.geog884/files/image/lesson2/Chainey\%20et\%20al.\%20(2008).pdf
+
+\section*{Authors}
+Spencer Chainey, Lisa Tompson and Sebastian Uhlig
+
+\section*{Summary}
+
+This paper looked at the patterns of crime based on types of crime and spatial occurrences of these crimes. Crime does not occur randomly and is based partly on the opportunities available to commit the crime and the interactions between the victim and the offender. Hotspots, or areas of high crime concentration, are of great importance to law enforcement because it allows them to use mapping in order to better predict and reduce crime in certain areas. Hotspot mapping uses the assumption that current crime patterns can be used to predict future crime patterns. This study also looked at various hotspot mapping techniques in order to see the benefits and hindrances of each technique so that researchers can apply the technique most suited for their specific needs. Another question asked was whether the ability to predict crime depends on the specific type of crime committed. Five different methods were used for crime mapping: point mapping, standard deviation spatial ellipses, thematic mapping of administrative units, grid thematic mapping and KDE. Point mapping is the oldest technique, where a point is placed at the location of an event. This method is considered outdated compared to newer, more sophisticated methods. Spatial ellipses (SDSE) method finds the highest concentration of points on a map and fits an ellipse to the area that is used to represent the underlying extent of activity in that area. The benefit of using this method is that it can derive hotspots without relying on defined boundaries but this method is hard to use for novices because it is sometimes difficult to determine the proper parameters. Thematic mapping is a versatile technique that allows for quick production and easy linking to other data sources, and provides a quick determination of the areas with most concentrated crime. Grid thematic mapping is good in dealing with the differing sizes and shapes of geographical regions where areas that are thematically shaded by the user have consistent dimensions and can be comparable to other locations. However, grids have to be used for this method, which restricts how the hotspots are displayed because the events have to conform to the quadrant boundaries. KDE (kernel density estimation) is good at perceiving hotspot identification and uses point data along with two user defined parameters, search width and grid cell size. A very uniformed map is produced, but one of the downsides is that a wide array of maps can be produced using the same data source based on the various parameters set by the users, leading to a potentially misinformed visual of the data.
+
+This paper hopes to answer the question of whether the accuracy of hotspot map predictions of crime depends on the crime committed and also compares the differences between the various modes of hotspot mapping. The study was based on Central/North London and geocoded crime point data was obtained from the Metropolitan Police covering the time period between January 2002 to December 2003. Crime data was grouped by four types: burglary, street crime, vehicle theft and thefts from vehicles. Two dates were chosen to be represented on the hotspot maps, one on Jan 1st as an unusual activity date and one on March 13th as a more ordinary activity date. The time data was sliced into 10 different time periods to avoid getting a map of a time range and perhaps having the map produce a strange result due to “unusual activity day” patterns. A Prediction Accuracy Index was used where the percentage of crime events for a specific time in a determined crime hotspot was divided by the percentage area of the hotspot compared to the total study area. The hotspot mapping techniques chosen for use in this study along with the methodologies being used were spatial ellipses (STAC: CrimeStat), thematic mapping of boundary areas (MapInfo), grid thematic mapping (MapInfo) and KDE (Hotspot Detective). After mapping the data, it was concluded that KDE is the best of the four methods for predicting spatial patterns of crime due to the accuracy in identifying the location, size, orientation and spatial distribution of the data. The spatial ellipses were the worst at predicting spatial crime patterns. The street crime hotspot maps were best at predicting future street crime events compared to the other types of crime. This is because street crimes typically occur in areas where there are more shops, bars and other points of interest that give opportunity for street crimes to occur. 
+\end{document}
