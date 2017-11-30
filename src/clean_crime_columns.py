@@ -43,7 +43,7 @@ schema = StructType([
 	StructField("nycha",StringType(), True),
 	StructField("latitude",StringType(), True),	
 	StructField("longitude",DoubleType(), True),
-	StructField("taxi_zone_id",DoubleType(), True),
+	StructField("taxi_zone_id",StringType(), True),
 ])
 
 #Get USER
