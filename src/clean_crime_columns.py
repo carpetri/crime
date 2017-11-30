@@ -26,7 +26,7 @@ except:
 schema = StructType([
 	StructField("complaint_id",StringType(), True),
 	StructField("stating_datetime",TimestampType(), True),
-	StructField("ending_datetime",DoubleType(), True),
+	StructField("ending_datetime",TimestampType(), True),
 	StructField("reported_date",DoubleType(), True),
 	StructField("ofense_code",StringType(), True),
 	StructField("ofense_description",StringType(), True),
