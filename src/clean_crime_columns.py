@@ -27,7 +27,7 @@ schema = StructType([
 	StructField("complaint_id",StringType(), True),
 	StructField("stating_datetime",TimestampType(), True),
 	StructField("ending_datetime",TimestampType(), True),
-	StructField("reported_date",DoubleType(), True),
+	StructField("reported_date",DateType(), True),
 	StructField("ofense_code",StringType(), True),
 	StructField("ofense_description",StringType(), True),
 	StructField("pd_code",StringType(), True),
