@@ -132,8 +132,8 @@ def parse_line(l):
 	  clean_empty(l[16]), #premises_description
 	  clean_empty(l[17]), #park
 	  clean_empty(l[18]), #park
-	  clean_empty(l[21]), # latitude
-	  clean_empty(l[22]), #longitude
+	  float(clean_empty(l[21])), # latitude
+	  float(clean_empty(l[22])), #longitude
 	  get_zone_id(l[22],l[21],zones_broad.value), #taxi_zone
 	  )
 
