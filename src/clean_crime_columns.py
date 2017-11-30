@@ -13,10 +13,15 @@ from pyspark.sql import Row, Column
 from pyspark.sql.functions import *
 from pyspark.sql.functions import udf
 
-# if not sc:
-sc= SparkContext()
-# if not sqlContext:
-sqlContext = SQLContext(sc)
+try:
+	sc
+except:
+	sc= SparkContext()
+
+try:
+	sqlContext
+except:
+	sqlContext = SQLContext(sc)
 
 schema = StructType([
 	StructField("complaint_id",StringType(), True),
@@ -37,8 +42,8 @@ schema = StructType([
 	StructField("park_name",StringType(), True),
 	StructField("nycha",StringType(), True),
 	StructField("latitude",StringType(), True),	
-	StructField("longitude",StringType(), True),
-	StructField("taxi_zone_id",StringType(), True),
+	StructField("longitude",DoubleType(), True),
+	StructField("taxi_zone_id",DoubleType(), True),
 ])
 
 #Get USER
