@@ -94,7 +94,7 @@ def clean_empty(x):
 def to_double(x):
 	try:
 		return float(x)
-	except ValueError:
+	except:
 		return None
 
 
