@@ -41,7 +41,7 @@ schema = StructType([
 	StructField("premises_description",StringType(), True),
 	StructField("park_name",StringType(), True),
 	StructField("nycha",StringType(), True),
-	StructField("latitude",StringType(), True),	
+	StructField("latitude",DoubleTypeType(), True),	
 	StructField("longitude",DoubleType(), True),
 	StructField("taxi_zone_id",StringType(), True),
 ])
@@ -91,6 +91,13 @@ def clean_empty(x):
 	else:
 		return x
 
+def to_double(x):
+	try:
+		return float(x)
+	except ValueError:
+		return None
+
+
 def parse_line(l):
 	r = Row(
 		"complaint_id",
@@ -132,8 +139,8 @@ def parse_line(l):
 	  clean_empty(l[16]), #premises_description
 	  clean_empty(l[17]), #park
 	  clean_empty(l[18]), #park
-	  float(clean_empty(l[21])), # latitude
-	  float(clean_empty(l[22])), #longitude
+	  to_double(clean_empty(l[21])), # latitude
+	  to_double(clean_empty(l[22])), #longitude
 	  get_zone_id(l[22],l[21],zones_broad.value), #taxi_zone
 	  )
 
@@ -148,6 +155,40 @@ def filter_dates(x):
 	else:
 		return True
 
+def get_station(lon,lat):
+	s_coords = pd.DataFrame({
+		'station':  [
+			"Central Park",
+			"La Guardia",
+			"JFK",
+			]
+		,
+		'lat': [ 
+			40.782483,
+			40.776212, 
+			40.640773, 
+			], 
+		'lon':[
+			-73.965816,
+			-73.874009,
+			-73.779180,
+			]
+	})
+
+	if not lon:
+		return None
+	if not lon:
+		return 
+
+	s_coords['dist'] =  (s_coords.lon - lon)**2 + (s_coords.lat - lat)**2
+	ind = s_coords['dist'].idxmin(axis=0)
+	out = s_coords.station[ind]
+	return out
+
+get_station_udf = udf(  get_station )
+
+
+
 dat = sc.textFile(crimes_folder).\
 flatMap(parse_csv).\
 filter(lambda l: filter_dates(l[1]) and 
@@ -155,7 +196,8 @@ filter(lambda l: filter_dates(l[1]) and
 map(parse_line).\
 toDF(schema)
 
-# map(lambda l: clean_dates(l[3],l[4]).year ).distinct().collect()
+dat.withColumn('station', get_station_udf("pickup_longitude","pickup_latitude") )
+
 
 output_folder = '/user/%s/rbda/crime/data/crime_clean' %(user)
 
