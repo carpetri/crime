@@ -196,7 +196,7 @@ filter(lambda l: filter_dates(l[1]) and
 map(parse_line).\
 toDF(schema)
 
-dat.withColumn('station', get_station_udf("pickup_longitude","pickup_latitude") )
+dat.withColumn('station', get_station_udf("longitude","latitude") )
 
 
 output_folder = '/user/%s/rbda/crime/data/crime_clean' %(user)
