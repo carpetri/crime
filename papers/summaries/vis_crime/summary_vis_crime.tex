@@ -1,0 +1,106 @@
+\documentclass[11pt,letterpaper,english]{article}
+\usepackage{babel}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[psamsfonts]{amssymb}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage{graphics}
+\usepackage{enumerate}
+\usepackage{amstext}
+\usepackage{url}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{hyperref} 
+\usepackage{geometry} 
+\geometry{letterpaper}
+\usepackage{setspace}
+\setstretch{1}
+
+% \renewcommand{\headrulewidth}{.5pt} 
+% \renewcommand{\footrulewidth}{.5pt}
+\pagenumbering{arabic}
+
+% \pagestyle{fancy} 
+% \fancyhead[R]{ {\footnotesize \scshape RBDA FALL 17}}
+% % \fancyhead[C]{ \footnotesize  cpa253 / }
+% \fancyhead[L]{\footnotesize \scshape  NYU }
+
+% \fancyfoot[L]{ \footnotesize  Last update: \today}
+
+% \fancyfoot[R]{ \footnotesize  Page \thepage \ of \pageref{LastPage}}
+
+\title{Visualising Crime Clusters in a Space-time Cube: An Exploratory Data-analysis Approach Using Space-time Kernel Density Estimation and
+Scan Statistics}
+\author{Carlos Petricioli (cpa253)}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+For an effective interpretation of spatio-temporal patterns of crime clusters/hotspots, we explore the possibility of three-dimensional mapping of crime events in a space- time cube with the aid of space-time variants of kernel density estimation and scan statistics. Using the crime occurrence dataset of snatch-and-run offences in Kyoto City from 2003 to 2004, we confirm that the proposed methodology enables simultaneous visualisation of the geographical extent and duration of crime clusters, by which stable and transient space-time crime clusters can be intuitively differentiated. Also, the combined use of the two statistical techniques revealed temporal inter-cluster associations showing that transient clusters alternatively appeared in a pair of hotspot regions, suggesting a new type of “displacement” phenomenon of crime. Highlighting the complementary aspects of the two space-time statistical approaches, we conclude that combining these approaches in a space-time cube display is particularly valuable for a spatio-temporal exploratory data analysis of clusters to extract new knowledge of crime epidemiology from a data set of space- time crime events.
+
+\end{abstract}
+
+\section*{Link}
+
+\begin{itemize}
+\item \href{http://www.kdd.org/kdd2016/papers/files/adp1044-wangA.pdf}{Direct link to pdf:\\ \texttt{http://onlinelibrary.wiley.com/doi/10.1111/j.1467-9671.2010.01194.x/epdf}}
+
+\item \href{https://dl.acm.org/citation.cfm?doid=2939672.2939736}{Link to DOI:\\ \texttt{http://onlinelibrary.wiley.com/doi/10.1111/j.1467-9671.2010.01194.x/abstract}}
+\end{itemize}
+
+
+\section*{Authors}
+\begin{itemize}
+
+\item Tomoki Nakaya,
+Department of Geography Ritsumeikan University, Kyoto, Japan
+
+
+\item Keiji Yano,
+Department of Geography Ritsumeikan University, Kyoto, Japan
+
+\end{itemize}
+
+\section*{Summary}
+
+In the paper \cite{visCrime} the authors propose a spatial epidemiological analysis of crime to reveal uneven distributions of crime risks and spatial interaction between crime events. This article is intended to contribute to extending crime analyses from the spatial perspective to a spatiotemporal one, by proposing an exploratory method to comprehend space-time patterns of crime clusters using space-time statistics and 3D visualisation techniques.
+
+A number of studies have highlighted the importance of temporal aspects in crime concentrations is crucial for identifying appropriate crime reduction responses. For example, short-term or cyclic clusters would require a quick strategic action using policing resources, while stable clusters may require long-term efforts to modify social and built environments. 
+
+However, less attention has been paid to the development of systematic analysis and representational methods of temporal dimensions, as compared to the geographic dimensions of crime epidemiology.
+
+Mapping crime at different time periods is probably the most common method to detect temporal changes in the distribution of crime clusters. In some cases, a research design may naturally lead to a pair of periods to be compared for testing a hypothesis on distributional changes of crime incidence. 
+
+For example, in order to assess the impacts of social and built environmental changes caused by a large transportation project on the geographical distribution of crime, Ceccato and Haining (2004) used spatial scan statistics to assess the difference in geographic offence patterns over two periods of time, e.g. before and after the construction of a bridge across the Sweden- Denmark border. To evaluate the success of crime prevention measures frameworks of statistical testing to compare numbers of crimes in predefined regions before and after the measures were implemented. 
+
+The dataset used in the study consists of occurrence points of snatch-and-run offences reported to the Kyoto Prefectural Police during the period 2003–2004.
+
+Snatch-and-run offences are a type of robbery committed on the street. In most situations, offenders snatch purses or bags and escape on a motorcycle. There has been an increase in such street crimes, thereby worsening the general perception of public safety in the society of Japan. To address this problem, police departments widely adopted GIS crime mapping. 
+
+Kernel density estimation (KDE), devised for estimating a smooth empirical probability function (Silverman 1986), is now a commonly applied spatial analysis technique to transform a geographically distributed set of points into a density surface in a GIS environment.
+
+A crucial element of KDE is the selection of the bandwidth parameters. The bandwidths control the degree of smoothness in an estimated density surface. A large bandwidth leads to a smoother surface to emphasize statistically stable behaviour, though it may smooth out small but important spatio-temporal fluctuations from the true density distribution. 
+
+By assuming that the expected number of crimes is geographically constant in the built-up area of the city, the authors apply the Poisson model of space-time scan statistics to a dataset consisting of crime event counts aggregated in each 500-m grid cell. The maximum radius of the cylindrical search window is set to 1 km based on a preliminary investigation of cluster sizes of the usual 2D crime mapping.
+
+Under the null assumption that cases of the event under study randomly occur following a Poisson distribution, Monte Carlo replications of the dataset enable the authors to obtain the simulated distribution of the likelihood ratio statistics l for significance testing of high density clusters. The authors generate 999 replications to obtain P-values, indicating the probability of the random appearance of an observed high crime density in a cylindrical window. The cluster defined by the cylindrical window with the lowest p-value is called the most likely cluster. Secondary clusters are also obtained for clusters that do not geographically overlap more likely clusters if their P-values are below the significance level. 
+
+
+In conclusion, This visualisation methodology is designed to use descriptive and confirmative space-time statistics, which are the space-time kernel density estimation (STKDE) and space-time scan statistics (STSS), respectively. 
+
+These two methodologies of space-time statistics used for 3D mapping are complementary. STSS rigidly specifies crime cluster domains that can be used for secondary analysis, such as evaluating temporal correlations of cases between detected cluster domains. 
+However, the 3D method assumes that space-time domains of crime clusters are cylindrical. 
+
+Three-dimensional mapping using STKDE draws fuzzy domains, indicating areas of high crime density but without clear boundaries. It can also be used to verify the assumption of STSS and to investigate more detailed space-time sequences of crime clusters. This is in contrast to the visualisation of STSS that statistically confirms anomalous concentrations of cases but might oversimplify the distribution of space-time concentrations.
+
+
+\bibliographystyle{ieeetr}
+\bibliography{biblio} 
+% \label{LastPage}
+\end{document}

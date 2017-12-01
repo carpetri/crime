@@ -1,0 +1,127 @@
+\documentclass[10pt,letterpaper,english]{article}
+\usepackage{babel}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[psamsfonts]{amssymb}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage{graphics}
+\usepackage{enumerate}
+\usepackage{amstext}
+\usepackage{url}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{hyperref} 
+\usepackage{geometry} 
+\geometry{letterpaper}
+\usepackage{setspace}
+\setstretch{1}
+
+% \renewcommand{\headrulewidth}{.5pt} 
+% \renewcommand{\footrulewidth}{.5pt}
+\pagenumbering{arabic}
+
+% \pagestyle{fancy} 
+% \fancyhead[R]{ {\footnotesize \scshape RBDA FALL 17}}
+% % \fancyhead[C]{ \footnotesize  cpa253 / }
+% \fancyhead[L]{\footnotesize \scshape  NYU }
+
+% \fancyfoot[L]{ \footnotesize  Last update: \today}
+
+% \fancyfoot[R]{ \footnotesize  Page \thepage \ of \pageref{LastPage}}
+
+\title{Crime Rate Inference with Big Data Summary}
+\author{Carlos Petricioli (cpa253)}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Crime is one of the most important social problems in the country, affecting public safety, children development, and adult socioeconomic status. Understanding what factors cause higher crime is critical for policy makers in their efforts to reduce crime and increase citizens’ life quality. We tackle a fundamental problem in our paper: crime rate inference at the neighborhood level. Traditional approaches have used demographics and geographical influences to estimate crime rates in a region. With the fast development of positioning technology and prevalence of mobile devices, a large amount of modern urban data have been collected and such big data can provide new perspectives for understanding crime. In this pa- per, we used large-scale Point-Of-Interest data and taxi flow data in the city of Chicago, IL in the USA. We observed significantly improved performance in crime rate inference compared to using traditional features. Such an improvement is consistent over multiple years. We also show that these new features are significant in the feature importance analysis.
+
+\end{abstract}
+
+\section*{Link}
+
+\begin{itemize}
+\item \href{http://www.kdd.org/kdd2016/papers/files/adp1044-wangA.pdf}{Direct link to pdf:\\ \texttt{http://www.kdd.org/kdd2016/papers/files/adp1044-wangA.pdf}}
+
+\item \href{https://dl.acm.org/citation.cfm?doid=2939672.2939736}{Link to DOI:\\ \texttt{https://dl.acm.org/citation.cfm?doid=2939672.2939736}}
+\end{itemize}
+
+
+\section*{Authors}
+\begin{itemize}
+
+\item Hongjian Wang,
+hxw186@ist.psu.edu,
+College of Information Sciences and Technology Pennsylvania State University, University Park, PA, USA
+
+\item  Daniel Kifer, 
+dkifer@cse.psu.edu,
+Department of Computer Science \& Engineering Pennsylvania State University, University Park, PA, USA
+
+
+\item Corina Graif, 
+corina.graif@psu.edu,
+Department of Sociology and Criminology Pennsylvania State University, University Park, PA, USA
+
+\item Zhenhui Li
+jessieli@ist.psu.edu, 
+College of Information Sciences and Technology Pennsylvania State University, University Park, PA, USA
+
+\end{itemize}
+
+\section*{Summary}
+
+In the paper \cite{crimeRate} the authors propose to use POI and taxi flow data, which reflect how people commute in the city, to make inference on crime.  They hypothesize that taxi flows may be considered as “hyperlinks” in the city that connect the locations and use such data to estimate crime rates. Taxi flows may be a proxy for broader patterns of population routine activity and mobility, commuting flows, and other forms of social and economic exchanges between two communities over space. 
+
+They use linear regression and negative binomial models, tests of different combinations of features, present construction of features, importance of features, and propose theoretical interpretations of the results.
+
+In summary, the contribution of this paper are: 
+\begin{enumerate}
+
+\item They study crime inference problem by utilizing new urban data: POIs and taxi flows. 
+
+\item  Utilizing these data improves the crime rate inference. 
+
+\item Experiments are used to compare different results and feature combinations. 
+\end{enumerate}
+All the related work can be categorized in the following categories:
+\begin{description}
+\item \textbf{Time-centric paradigm}. This line of work focuses on the temporal dimension of crime incidents.
+
+\item \textbf{Place-centric paradigm}. Most existing work. Predict the location of crime incidents, usually referred by the term \textit{hotspot}.
+
+\item \textbf{Population-centric paradigm}. Research focuses on the criminal profiling at individual and community levels.
+
+\end{description}
+
+They use POI to enhance the demographics information and use taxi flow as hyperlinks to enhance the geographical proximity correlation.  They do not consider the temporal dimension of crime in depth.
+
+Their problem is population-centric because they try to profile the crime rate for Chicago community areas, where, community areas are well-defined and stable geographical regions.  The proposed POI features and taxi links provide new perspectives in profiling the crime rate across community areas.
+
+The crime data collected in Chicago has detailed information about the time and location of crime and the types of crime. The term crime count refers to number of crime incidents in a region in a year. The community area is used as geographical unit of study, since it is well-defined, historically recognized and stable over time. Crime rate is the crime count normalized by the population in a region. We use vector  to denote the crime rates in regions. The crime rate inference problem is to estimate the crime rate in one region using the crime rate of other regions in the same year by considering the features of regions and correlations between regions.
+
+They study the crime rate inference problem, estimate the crime rate of some regions given the information of all the other regions. For community area $t$ with crime rate $y_t$ missing, and  use the crime rate of all the other regions $\{y_i\}-y_t$ to infer this missing value. The problem is described as
+$$\hat{y_t}=f(\{y_i\}- y_t,X), $$
+where $X$ refers to observed extra information of all those community areas.Two types of features $X$:
+
+\begin{description}
+\item \textbf{Nodal feature}. Describe the characteristics of the focal region, demographic information and POI.
+
+\item \textbf{Edge features}
+
+(1) Geographical influence, crime rate of the nearby locations. 
+
+(2) Hyperlink by taxi flow. Locations are connected through the frequent trips.  Two regions that are more strongly connected through social flow will influence each other’s crime rate.
+\end{description}
+
+\bibliographystyle{ieeetr}
+\bibliography{biblio} 
+% \label{LastPage}
+\end{document}
