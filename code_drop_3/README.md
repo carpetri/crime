@@ -1,4 +1,4 @@
-# Predicting crime using taxi trips data - CODE DROP 2
+# Predicting crime using taxi trips data - CODE DROP 3
 
 Authors:
 
@@ -7,32 +7,16 @@ Authors:
 * Varsha Muralidharan (vm1370@nyu.edu)
 
 `
-code_drop_2
-|-- [1.1K]  README.md
-|-- [2.9K]  analyze_crime.py
-|-- [ 559]  analyze_taxi.py
-|-- [1.2K]  filter_clean_crime.py
+code_drop_3
+|-- [ 451]  README.md
+|-- [3.0K]  analyze_crime.py
+|-- [4.7K]  bash_profile_dumbo
 |-- [3.4K]  filter_clean_taxi.py
-|-- [ 677]  profile_crime.py
-|-- [1.2K]  profile_taxi.py
+|-- [1.3K]  taxi_zone_centroids.py
 `
 
-This folder includes code that runs on spark. This code drop was focused mostly in relating the 3 datasets, crime, weather and taxis. This involved a much more extensive cleaning phase than we expected, so we needed to iterate more in the cleaning. Taxi data was specially complicated. We had to do a lot of assumptions to deal with the 'ugly' data.
-
-This code also includes a first dummy implementation of a linear model that uses Spark's ML-lib.
+This folder includes code that runs on spark. This code drop was focused mostly in relating the 3 datasets, crime, weather and taxis and simple iterations in the modeling
 
 ## OUTPUT
 
-The result of this process leads to all datasets being related.
-
-- Taxi  rides have been joined with  hourly weather data form the closest station to the pickup location.
-- Crimes data have now a weather station assigned hourly.
-
-
-
-
-
-
-
-
-
+The result of this process leads to a new iteration in the modeling phase
