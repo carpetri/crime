@@ -1,39 +1,105 @@
-# Crime
-Carlos Petricioli / cpa253  
-11/3/2017  
+# `r params$set_title`
+12/15/2017  
+
+## Big Data Analytics Symposium - Fall 2017
 
 
 
-## R Markdown
+### Analytics Project
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+ Predicting crime rates using taxi rides in NYC
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+### Team
 
-## Slide with Bullets
+- Carlos Petricioli (cpa253)
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+- Varsha Muralidharan  (vm1370)
 
-## Slide with R Output
+- Valerie Angulo (vaa238)
+
+### Abstract
+
+- We study crime rates and its relationship on how people use of taxis in New York City. 
+- Our hypothesis is that people are less likely to walk in areas subjectively deemed more dangerous and will instead opt to use more reliable and immediate transportation such as designated taxis. 
+- WE FOUND THAT ____. 
 
 
-```r
-summary(cars)
-```
+#  Predicting crime rates using taxi rides in NYC
 
-```
-##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00
-```
+## Motivation
+### Who are the users of this analytic?         
+< Short description of why this analytic is important > 
 
-## Slide with Plot
+### who will benefit?
+BENEFIT
 
-![](crime_files/figure-slidy/pressure-1.png)<!-- -->
 
+### Why is this analytic important?         
+< Short description of why this analytic is important > 
+
+## Goodness
+
+### cleaning data
+we made sure that --
+
+### model testing
+we made sure that --
+
+## Data Sources
+
+Name:           <Data Source 1 Name>
+Description:  <Brief description…>
+Size of data:  <Size…>
+
+Name:           <Data Source 2 Name>
+Description:  <Brief description…>
+Size of data:  <Size…>
+…
+Name:           <Data Source n Name>
+Description:  <Brief description…>
+Size of data:  <Size…>
+
+## Design Diagram
+
+< Insert one or more design diagrams here. Diagrams should show inputs, outputs, tools used. >
+
+Platform(s) on which the analytic ran: 
+< Did you use the Quickstart VM? NYU HPC cluster? Amazon AWS? Google GCE? Multiple platforms? >
+
+## Results
+
+1. <Result 1>
+< Tell us a maximum of three results, insights, observations, or outcomes… >
+
+2. <Result 2>
+
+3. <Result 3>
+
+## Obstacles
+
+1. <Obstacle1>
+< Tell us up to two obstacles you experienced in developing this analytic. >
+
+2. <Obstacle 2>
+
+## Summary
+
+<Brief wrap-up!>
+
+
+
+## Acknowledgements
+
+<
+If you used an Amazon AWS voucher for this work, thank Amazon here.
+If you had help from HPC, thank them for their support here.
+If you received data from some source that was kind enough to share their data with you, thank them here.
+If you worked with a domain expert, you know what to do…
+>
+
+## References
+
+< List the work you referenced >
+
+
+# Thank you!

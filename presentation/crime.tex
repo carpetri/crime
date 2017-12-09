@@ -1,0 +1,324 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[10pt,ignorenonframetext,]{beamer}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+\usetheme[]{CambridgeUS}
+\usecolortheme{dove}
+\usefonttheme{structurebold}
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={Predicting crime rates using taxi rides in NYC},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\newif\ifbibliography
+% Prevent slide breaks in the middle of a paragraph:
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \let\insertpartnumber\relax
+  \let\partname\relax
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \let\insertsectionnumber\relax
+    \let\sectionname\relax
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \let\insertsubsectionnumber\relax
+  \let\subsectionname\relax
+  \frame{\subsectionpage}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\author{Carlos Petricioli \and
+    Varsha Muralidharan   \and
+    Valerie Angulo  }
+
+\institute[New York University]{ New York University \\ \{cpa253,vm1370,vaa238\}@nyu.edu }
+
+\setbeamerfont{headline}{size=\fontsize{8}{1}\selectfont}
+\setbeamertemplate{headline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=1\paperwidth,ht=2.3ex,dp=1.5ex,right]{section in head/foot}%
+    \usebeamerfont{section in head/foot}\insertsectionhead\hspace*{1ex}
+  \end{beamercolorbox}%
+  % \begin{beamercolorbox}[wd=0\paperwidth,ht=2.65ex,dp=1.5ex,right]{subsection in head/foot}%
+  %   \usebeamerfont{subsection in head/foot}\hspace*{2ex}\insertsubsectionhead
+  % \end{beamercolorbox}
+  }%
+  \vskip0pt%
+}
+
+
+% \setbeamertemplate{navigation symbols}{}
+% \setbeamertemplate{footline}[page number]
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+      \begin{beamercolorbox}[wd=1\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+          \usebeamerfont{author in head/foot}
+          \insertframenumber{} of  \inserttotalframenumber\hspace*{2ex} 
+      \end{beamercolorbox}}%
+      \vskip0pt%
+}
+
+% Set Color ==============================
+% Custom colors
+\usepackage{xcolor}
+
+%\definecolor{gold}{HTML}{FDD017}
+\definecolor{gold}{HTML}{fdde5c}
+% \definecolor{deep sky blue}{HTML}{3BB9FF}
+% \definecolor{light sky blue}{HTML}{82CAFA}
+
+\makeatletter
+\definecolor{mybackground}{HTML}{fef5d0}
+\definecolor{myforeground}{HTML}{0000A0}
+
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{alerted text}{fg=red}
+\setbeamercolor{example text}{fg=black}
+
+\setbeamercolor{background canvas}{fg=myforeground, bg=white}
+\setbeamercolor{background}{fg=myforeground, bg=mybackground}
+
+\setbeamercolor{palette primary}{fg=black, bg=gray!30!white}
+\setbeamercolor{palette secondary}{fg=black, bg=gray!20!white}
+\setbeamercolor{palette tertiary}{fg=black, bg=gold}
+\makeatother
+
+\title{Predicting crime rates using taxi rides in NYC}
+\date{12/15/2017}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{%
+\protect\hypertarget{big-data-analytics-symposium---fall-2017}{%
+Big Data Analytics Symposium - Fall 2017}}
+
+\begin{block}{Analytics Project}
+
+Predicting crime rates using taxi rides in NYC
+
+\end{block}
+
+\begin{block}{Team}
+
+\begin{itemize}
+\item
+  Carlos Petricioli (cpa253)
+\item
+  Varsha Muralidharan (vm1370)
+\item
+  Valerie Angulo (vaa238)
+\end{itemize}
+
+\end{block}
+
+\begin{block}{Abstract}
+
+\begin{itemize}
+\tightlist
+\item
+  We study crime rates and its relationship on how people use of taxis
+  in New York City.
+\item
+  Our hypothesis is that people are less likely to walk in areas
+  subjectively deemed more dangerous and will instead opt to use more
+  reliable and immediate transportation such as designated taxis.
+\item
+  WE FOUND THAT \_\_\_\_.
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+\hypertarget{predicting-crime-rates-using-taxi-rides-in-nyc}{%
+\section{Predicting crime rates using taxi rides in
+NYC}\label{predicting-crime-rates-using-taxi-rides-in-nyc}}
+
+\begin{frame}{%
+\protect\hypertarget{motivation}{%
+Motivation}}
+
+\begin{block}{Who are the users of this analytic?}
+
+\textless{} Short description of why this analytic is important
+\textgreater{}
+
+\end{block}
+
+\begin{block}{who will benefit?}
+
+BENEFIT
+
+\end{block}
+
+\begin{block}{Why is this analytic important?}
+
+\textless{} Short description of why this analytic is important
+\textgreater{}
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{%
+\protect\hypertarget{goodness}{%
+Goodness}}
+
+\begin{block}{cleaning data}
+
+we made sure that –
+
+\end{block}
+
+\begin{block}{model testing}
+
+we made sure that –
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{%
+\protect\hypertarget{data-sources}{%
+Data Sources}}
+
+Name: \textless{}Data Source 1 Name\textgreater{} Description:
+\textless{}Brief description\ldots{}\textgreater{} Size of data:
+\textless{}Size\ldots{}\textgreater{}
+
+Name: \textless{}Data Source 2 Name\textgreater{} Description:
+\textless{}Brief description\ldots{}\textgreater{} Size of data:
+\textless{}Size\ldots{}\textgreater{} \ldots{} Name: Description:
+\textless{}Brief description\ldots{}\textgreater{} Size of data:
+\textless{}Size\ldots{}\textgreater{}
+
+\end{frame}
+
+\begin{frame}{%
+\protect\hypertarget{design-diagram}{%
+Design Diagram}}
+
+\textless{} Insert one or more design diagrams here. Diagrams should
+show inputs, outputs, tools used. \textgreater{}
+
+Platform(s) on which the analytic ran: \textless{} Did you use the
+Quickstart VM? NYU HPC cluster? Amazon AWS? Google GCE? Multiple
+platforms? \textgreater{}
+
+\end{frame}
+
+\begin{frame}{%
+\protect\hypertarget{results}{%
+Results}}
+
+\begin{enumerate}
+[1.]
+\item
+  \textless{}Result 1\textgreater{} \textless{} Tell us a maximum of
+  three results, insights, observations, or outcomes\ldots{}
+  \textgreater{}
+\item
+  \textless{}Result 2\textgreater{}
+\item
+  \textless{}Result 3\textgreater{}
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{%
+\protect\hypertarget{obstacles}{%
+Obstacles}}
+
+\begin{enumerate}
+[1.]
+\item
+   \textless{} Tell us up to two obstacles you experienced in developing
+  this analytic. \textgreater{}
+\item
+  \textless{}Obstacle 2\textgreater{}
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{%
+\protect\hypertarget{summary}{%
+Summary}}
+
+\textless{}Brief wrap-up!\textgreater{}
+
+\end{frame}
+
+\begin{frame}{%
+\protect\hypertarget{acknowledgements}{%
+Acknowledgements}}
+
+\textless{} If you used an Amazon AWS voucher for this work, thank
+Amazon here. If you had help from HPC, thank them for their support
+here. If you received data from some source that was kind enough to
+share their data with you, thank them here. If you worked with a domain
+expert, you know what to do\ldots{} \textgreater{}
+
+\end{frame}
+
+\begin{frame}{%
+\protect\hypertarget{references}{%
+References}}
+
+\textless{} List the work you referenced \textgreater{}
+
+\end{frame}
+
+\hypertarget{thank-you}{%
+\section{Thank you!}\label{thank-you}}
+
+\end{document}
