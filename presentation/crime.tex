@@ -124,6 +124,9 @@
 \setbeamercolor{alerted text}{fg=red}
 \setbeamercolor{example text}{fg=black}
 
+\setbeamercolor{block title}{bg=mybackground,fg=black}
+
+
 \setbeamercolor{background canvas}{fg=myforeground, bg=white}
 \setbeamercolor{background}{fg=myforeground, bg=mybackground}
 
@@ -188,23 +191,16 @@ NYC}\label{predicting-crime-rates-using-taxi-rides-in-nyc}}
 \protect\hypertarget{motivation}{%
 Motivation}}
 
-\begin{block}{Who are the users of this analytic?}
+\begin{block}{Typical user of this application}
 
-\textless{} Short description of why this analytic is important
-\textgreater{}
-
-\end{block}
-
-\begin{block}{who will benefit?}
-
-BENEFIT
+The scientific community, the citizens and demographics themselves.
 
 \end{block}
 
-\begin{block}{Why is this analytic important?}
+\begin{block}{Insight that we’ll get}
 
-\textless{} Short description of why this analytic is important
-\textgreater{}
+The objective is to get a better sense of the way that crime relates to
+the use of taxis in NYC.
 
 \end{block}
 
@@ -232,15 +228,82 @@ we made sure that –
 \protect\hypertarget{data-sources}{%
 Data Sources}}
 
-Name: \textless{}Data Source 1 Name\textgreater{} Description:
-\textless{}Brief description\ldots{}\textgreater{} Size of data:
-\textless{}Size\ldots{}\textgreater{}
+\begin{block}{Taxi rides data form TLC
+\href{http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml}{(\emph{Link})}}
 
-Name: \textless{}Data Source 2 Name\textgreater{} Description:
-\textless{}Brief description\ldots{}\textgreater{} Size of data:
-\textless{}Size\ldots{}\textgreater{} \ldots{} Name: Description:
-\textless{}Brief description\ldots{}\textgreater{} Size of data:
-\textless{}Size\ldots{}\textgreater{}
+\begin{itemize}
+\item
+  It covers years from 2009 to June 2017.
+\item
+  The yellow taxi trip records include:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    pick-up and drop-off dates/times,
+  \item
+    pick-up and drop-off locations,
+  \item
+    trip distance,
+  \item
+    itemized fares,
+  \item
+    rate types,
+  \item
+    payment type,
+  \item
+    passenger counts.
+  \end{itemize}
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{block}{NYPD Complaint Data
+\href{https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i}{(\emph{Link
+1,}}
+\href{https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Current-YTD/5uac-w243}{\emph{Link
+2)}}}
+
+\begin{itemize}
+\tightlist
+\item
+  This dataset includes all valid felony, misdemeanor, and violation
+  crimes reported to the New York City Police Department (NYPD) from
+  2006 to year to date data.
+\end{itemize}
+
+\end{block}
+
+\begin{block}{NOAA Weather stations data
+\href{https://www.ncdc.noaa.gov/isd}{\emph{(Link)}}}
+
+The \emph{Integrated Surface Database (ISD)} consists of global hourly
+ansynoptic observations compiled from numerous sources into a single
+common ASCII format and common data model.
+
+\begin{itemize}
+\item
+  ISD’s complete history of hour-by-hour readings for one user-specified
+  weather stations
+\item
+  We selected:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Central Park
+  \item
+    JFK
+  \item
+    Laguardia
+  \end{itemize}
+\end{itemize}
+
+\end{block}
 
 \end{frame}
 
@@ -248,12 +311,19 @@ Name: \textless{}Data Source 2 Name\textgreater{} Description:
 \protect\hypertarget{design-diagram}{%
 Design Diagram}}
 
-\textless{} Insert one or more design diagrams here. Diagrams should
-show inputs, outputs, tools used. \textgreater{}
+\begin{center}
+\includegraphics[height=.6\textheight]{img/DesignFlowDiagram.jpg}
+\end{center}
 
-Platform(s) on which the analytic ran: \textless{} Did you use the
-Quickstart VM? NYU HPC cluster? Amazon AWS? Google GCE? Multiple
-platforms? \textgreater{}
+\begin{block}{Platform:}
+
+\begin{itemize}
+\tightlist
+\item
+  NYU HPC cluster (Dumbo)
+\end{itemize}
+
+\end{block}
 
 \end{frame}
 
@@ -264,13 +334,11 @@ Results}}
 \begin{enumerate}
 [1.]
 \item
-  \textless{}Result 1\textgreater{} \textless{} Tell us a maximum of
-  three results, insights, observations, or outcomes\ldots{}
-  \textgreater{}
+  Result 1
 \item
-  \textless{}Result 2\textgreater{}
+  Result 2
 \item
-  \textless{}Result 3\textgreater{}
+  Result 3
 \end{enumerate}
 
 \end{frame}
@@ -282,10 +350,9 @@ Obstacles}}
 \begin{enumerate}
 [1.]
 \item
-   \textless{} Tell us up to two obstacles you experienced in developing
-  this analytic. \textgreater{}
+  Obstacle 1
 \item
-  \textless{}Obstacle 2\textgreater{}
+  Obstacle 2
 \end{enumerate}
 
 \end{frame}
@@ -294,7 +361,7 @@ Obstacles}}
 \protect\hypertarget{summary}{%
 Summary}}
 
-\textless{}Brief wrap-up!\textgreater{}
+Brief wrap-up!
 
 \end{frame}
 
@@ -302,11 +369,9 @@ Summary}}
 \protect\hypertarget{acknowledgements}{%
 Acknowledgements}}
 
-\textless{} If you used an Amazon AWS voucher for this work, thank
-Amazon here. If you had help from HPC, thank them for their support
-here. If you received data from some source that was kind enough to
-share their data with you, thank them here. If you worked with a domain
-expert, you know what to do\ldots{} \textgreater{}
+We thank the people from HPC support at NYU. Specially Santhosh Konda
+\href{mailto:hpc@nyu.edu}{\nolinkurl{hpc@nyu.edu}} for being reachable
+with very short response time.
 
 \end{frame}
 
@@ -314,7 +379,40 @@ expert, you know what to do\ldots{} \textgreater{}
 \protect\hypertarget{references}{%
 References}}
 
-\textless{} List the work you referenced \textgreater{}
+\begin{thebibliography}{1}
+
+\bibitem{Bendler14}
+J.~Bendler, T.~Brandt, S.~Wagner, and D.~Neumann.
+\newblock Investigating crime-to-twitter relationships in urban environments -
+  facilitating a virtual neighborhood watch.
+\newblock In M.~Avital, J.~M. Leimeister, and U.~Schultze, editors, {\em ECIS},
+  2014.
+
+\bibitem{fbiUniformCrime}
+{Federal Bureau of Investigation, Uniform Crime Reporting}.
+\newblock {Offenses Known to Law Enforcement by State by City}.
+\newblock 2016.
+
+\bibitem{Traunmueller14}
+M.~Traunmueller, G.~Quattrone, and L.~Capra.
+\newblock {\em Mining Mobile Phone Data to Investigate Urban Crime Theories at
+  Scale}, pages 396--411.
+\newblock Springer International Publishing, Cham, 2014.
+\end{thebibliography}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{thebibliography}{1}
+\bibitem{Wang16}
+H.~Wang, D.~Kifer, C.~Graif, and Z.~Li.
+\newblock Crime rate inference with big data.
+\newblock In {\em Proceedings of the 22Nd ACM SIGKDD International Conference
+  on Knowledge Discovery and Data Mining}, KDD '16, pages 635--644, New York,
+  NY, USA, 2016. ACM.
+
+\end{thebibliography}
 
 \end{frame}
 

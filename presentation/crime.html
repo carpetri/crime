@@ -374,6 +374,7 @@ list-style-type: none;
 <h3 id="analytics-project">Analytics Project</h3>
 <p>Predicting crime rates using taxi rides in NYC</p>
 <h3 id="team">Team</h3>
+<!-- incremental bulletes with >- -->
 <ul>
 <li><p>Carlos Petricioli (cpa253)</p></li>
 <li><p>Varsha Muralidharan (vm1370)</p></li>
@@ -388,12 +389,10 @@ list-style-type: none;
 </div>
 <div id="predicting-crime-rates-using-taxi-rides-in-nyc" class="title-slide slide section level1"><h1>Predicting crime rates using taxi rides in NYC</h1></div><div id="motivation" class="slide section level2">
 <h1>Motivation</h1>
-<h3 id="who-are-the-users-of-this-analytic">Who are the users of this analytic?</h3>
-<p>&lt; Short description of why this analytic is important &gt;</p>
-<h3 id="who-will-benefit">who will benefit?</h3>
-<p>BENEFIT</p>
-<h3 id="why-is-this-analytic-important">Why is this analytic important?</h3>
-<p>&lt; Short description of why this analytic is important &gt;</p>
+<h3 id="typical-user-of-this-application">Typical user of this application</h3>
+<p>The scientific community, the citizens and demographics themselves.</p>
+<h3 id="insight-that-well-get">Insight that we’ll get</h3>
+<p>The objective is to get a better sense of the way that crime relates to the use of taxis in NYC.</p>
 </div><div id="goodness" class="slide section level2">
 <h1>Goodness</h1>
 <h3 id="cleaning-data">cleaning data</h3>
@@ -402,34 +401,69 @@ list-style-type: none;
 <p>we made sure that –</p>
 </div><div id="data-sources" class="slide section level2">
 <h1>Data Sources</h1>
-<p>Name: &lt;Data Source 1 Name&gt; Description: &lt;Brief description…&gt; Size of data: &lt;Size…&gt;</p>
-<p>Name: &lt;Data Source 2 Name&gt; Description: &lt;Brief description…&gt; Size of data: &lt;Size…&gt; … Name: <Data Source n Name> Description: &lt;Brief description…&gt; Size of data: &lt;Size…&gt;</p>
+<h3 id="taxi-rides-data-form-tlc-link">Taxi rides data form TLC <a href="http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml">(<em>Link</em>)</a></h3>
+<ul>
+<li><p>It covers years from 2009 to June 2017.</p></li>
+<li><p>The yellow taxi trip records include:</p>
+<ul>
+<li>pick-up and drop-off dates/times,</li>
+<li>pick-up and drop-off locations,</li>
+<li>trip distance,</li>
+<li>itemized fares,</li>
+<li>rate types,</li>
+<li>payment type,</li>
+<li>passenger counts.</li>
+</ul></li>
+</ul>
+</div><div class="slide section level2">
+
+<h3 id="nypd-complaint-data-link-1-link-2">NYPD Complaint Data <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i">(<em>Link 1,</em></a> <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Current-YTD/5uac-w243"><em>Link 2)</em></a></h3>
+<ul>
+<li>This dataset includes all valid felony, misdemeanor, and violation crimes reported to the New York City Police Department (NYPD) from 2006 to year to date data.</li>
+</ul>
+<h3 id="noaa-weather-stations-data-link">NOAA Weather stations data <a href="https://www.ncdc.noaa.gov/isd"><em>(Link)</em></a></h3>
+<p>The <em>Integrated Surface Database (ISD)</em> consists of global hourly ansynoptic observations compiled from numerous sources into a single common ASCII format and common data model.</p>
+<ul>
+<li><p>ISD’s complete history of hour-by-hour readings for one user-specified weather stations</p></li>
+<li>We selected:
+<ul>
+<li>Central Park</li>
+<li>JFK</li>
+<li>Laguardia</li>
+</ul></li>
+</ul>
 </div><div id="design-diagram" class="slide section level2">
 <h1>Design Diagram</h1>
-<p>&lt; Insert one or more design diagrams here. Diagrams should show inputs, outputs, tools used. &gt;</p>
-<p>Platform(s) on which the analytic ran: &lt; Did you use the Quickstart VM? NYU HPC cluster? Amazon AWS? Google GCE? Multiple platforms? &gt;</p>
+
+<h3 id="platform">Platform:</h3>
+<ul>
+<li>NYU HPC cluster (Dumbo)</li>
+</ul>
 </div><div id="results" class="slide section level2">
 <h1>Results</h1>
 <ol style="list-style-type: decimal">
-<li><p>&lt;Result 1&gt; &lt; Tell us a maximum of three results, insights, observations, or outcomes… &gt;</p></li>
-<li><p>&lt;Result 2&gt;</p></li>
-<li><p>&lt;Result 3&gt;</p></li>
+<li><p>Result 1</p></li>
+<li><p>Result 2</p></li>
+<li><p>Result 3</p></li>
 </ol>
 </div><div id="obstacles" class="slide section level2">
 <h1>Obstacles</h1>
 <ol style="list-style-type: decimal">
-<li><p><Obstacle1> &lt; Tell us up to two obstacles you experienced in developing this analytic. &gt;</p></li>
-<li><p>&lt;Obstacle 2&gt;</p></li>
+<li><p>Obstacle 1</p></li>
+<li><p>Obstacle 2</p></li>
 </ol>
 </div><div id="summary" class="slide section level2">
 <h1>Summary</h1>
-<p>&lt;Brief wrap-up!&gt;</p>
+<p>Brief wrap-up!</p>
 </div><div id="acknowledgements" class="slide section level2">
 <h1>Acknowledgements</h1>
-<p>&lt; If you used an Amazon AWS voucher for this work, thank Amazon here. If you had help from HPC, thank them for their support here. If you received data from some source that was kind enough to share their data with you, thank them here. If you worked with a domain expert, you know what to do… &gt;</p>
+<p>We thank the people from HPC support at NYU. Specially Santhosh Konda <a href="mailto:hpc@nyu.edu">hpc@nyu.edu</a> for being reachable with very short response time.</p>
 </div><div id="references" class="slide section level2">
 <h1>References</h1>
-<p>&lt; List the work you referenced &gt;</p>
+
+</div><div class="slide section level2">
+
+
 </div>
 <div id="thank-you" class="title-slide slide section level1"><h1>Thank you!</h1></div>
 
