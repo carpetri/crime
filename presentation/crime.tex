@@ -1,6 +1,3 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
-\PassOptionsToPackage{hyphens}{url}
-%
 \documentclass[10pt,ignorenonframetext,]{beamer}
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}{: }
@@ -13,9 +10,12 @@
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provides euro and other symbols
 \else % if luatex or xelatex
-  \usepackage{unicode-math}
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
 \usetheme[]{CambridgeUS}
@@ -25,25 +25,20 @@
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
 \IfFileExists{microtype.sty}{%
-\usepackage[]{microtype}
+\usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-\usepackage{hyperref}
+\newif\ifbibliography
 \hypersetup{
             pdftitle={Predicting crime rates using taxi rides in NYC},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
-\newif\ifbibliography
+
 % Prevent slide breaks in the middle of a paragraph:
 \widowpenalties 1 10000
 \raggedbottom
+
 \AtBeginPart{
   \let\insertpartnumber\relax
   \let\partname\relax
@@ -62,16 +57,13 @@
   \let\subsectionname\relax
   \frame{\subsectionpage}
 }
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{0}
-
-% set default figure placement to htbp
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
-
 \author{Carlos Petricioli \and
     Varsha Muralidharan   \and
     Valerie Angulo  }
@@ -141,9 +133,7 @@
 \begin{document}
 \frame{\titlepage}
 
-\begin{frame}{%
-\protect\hypertarget{big-data-analytics-symposium---fall-2017}{%
-Big Data Analytics Symposium - Fall 2017}}
+\begin{frame}{Big Data Analytics Symposium - Fall 2017}
 
 \begin{block}{Analytics Project}
 
@@ -169,7 +159,7 @@ Predicting crime rates using taxi rides in NYC
 \begin{itemize}
 \tightlist
 \item
-  We study crime rates and its relationship on how people use of taxis
+  Our study looks at the relationship between crime rates and taxi usage
   in New York City.
 \item
   Our hypothesis is that people are less likely to walk in areas
@@ -183,50 +173,72 @@ Predicting crime rates using taxi rides in NYC
 
 \end{frame}
 
-\hypertarget{predicting-crime-rates-using-taxi-rides-in-nyc}{%
-\section{Predicting crime rates using taxi rides in
-NYC}\label{predicting-crime-rates-using-taxi-rides-in-nyc}}
+\begin{frame}{Motivation}
 
-\begin{frame}{%
-\protect\hypertarget{motivation}{%
-Motivation}}
+\begin{block}{Typical users of this application}
 
-\begin{block}{Typical user of this application}
-
-The scientific community, the citizens and demographics themselves.
+The scientific community, law enforcement, those in public
+transportation
 
 \end{block}
 
-\begin{block}{Insight that we’ll get}
+\begin{block}{Beneficiaries of this application}
 
-The objective is to get a better sense of the way that crime relates to
-the use of taxis in NYC.
+Members of the community and tourists, law enforcement
+
+\end{block}
+
+\begin{block}{Importance of this analytic}
+
+\begin{itemize}
+\tightlist
+\item
+  This analytic can help law enforcement predict areas of crime based on
+  New Yorkers transportation habits. Law enforcement officials may be
+  able to predict which areas will have a higher rate of crime in the
+  future.
+\item
+  People who live in an area are aware of the safety of their
+  surroundings and this awareness can be represented by how comfortable
+  residents may be in walking or taking the subway versus taking more
+  immediate, more expensive, modes of transportation such as taxis.
+\item
+  This analytic can benefit the community and tourists by influencing
+  their current and future transportation behaviors
+\end{itemize}
 
 \end{block}
 
 \end{frame}
 
-\begin{frame}{%
-\protect\hypertarget{goodness}{%
-Goodness}}
+\begin{frame}{Goodness}
+
+What steps were taken to assess the `goodness' of the analytic?\\
+\textless{} Short description of why you believe the results of your
+analytic are correct and can be trusted
 
 \begin{block}{cleaning data}
 
-we made sure that –
+\begin{itemize}
+\tightlist
+\item
+  we made sure that taxi columns with indeterminable dates were not
+  included and that the columns for all years matched.
+\item
+  we made sure taxi, crime and weather data could be related by zone
+\end{itemize}
 
 \end{block}
 
 \begin{block}{model testing}
 
-we made sure that –
+we made sure that --
 
 \end{block}
 
 \end{frame}
 
-\begin{frame}{%
-\protect\hypertarget{data-sources}{%
-Data Sources}}
+\begin{frame}{Data Sources}
 
 \begin{block}{Taxi rides data form TLC
 \href{http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml}{(\emph{Link})}}
@@ -235,25 +247,23 @@ Data Sources}}
 \item
   It covers years from 2009 to June 2017.
 \item
+  Data Size: 230 GB .. 2 TB
+\item
   The yellow taxi trip records include:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    pick-up and drop-off dates/times,
-  \item
-    pick-up and drop-off locations,
-  \item
-    trip distance,
-  \item
-    itemized fares,
-  \item
-    rate types,
-  \item
-    payment type,
-  \item
-    passenger counts.
-  \end{itemize}
+\item
+  pick-up and drop-off dates/times,
+\item
+  pick-up and drop-off locations,
+\item
+  trip distance,
+\item
+  itemized fares,
+\item
+  rate types,
+\item
+  payment type,
+\item
+  passenger counts.
 \end{itemize}
 
 \end{block}
@@ -276,6 +286,8 @@ Data Sources}}
   2006 to year to date data.
 \end{itemize}
 
+-Data Size: 1.5 GB
+
 \end{block}
 
 \begin{block}{NOAA Weather stations data
@@ -287,29 +299,25 @@ common ASCII format and common data model.
 
 \begin{itemize}
 \item
-  ISD’s complete history of hour-by-hour readings for one user-specified
+  ISD's complete history of hour-by-hour readings for one user-specified
   weather stations
 \item
   We selected:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Central Park
-  \item
-    JFK
-  \item
-    Laguardia
-  \end{itemize}
+\item
+  Central Park
+\item
+  JFK
+\item
+  Laguardia
 \end{itemize}
+
+-Data Size: 165 MB
 
 \end{block}
 
 \end{frame}
 
-\begin{frame}{%
-\protect\hypertarget{design-diagram}{%
-Design Diagram}}
+\begin{frame}{Design Diagram}
 
 \begin{center}
 \includegraphics[height=.6\textheight]{img/DesignFlowDiagram.jpg}
@@ -327,12 +335,12 @@ Design Diagram}}
 
 \end{frame}
 
-\begin{frame}{%
-\protect\hypertarget{results}{%
-Results}}
+\begin{frame}{Results}
+
+3 results, insights, observations, outcomes
 
 \begin{enumerate}
-[1.]
+\def\labelenumi{\arabic{enumi}.}
 \item
   Result 1
 \item
@@ -343,41 +351,57 @@ Results}}
 
 \end{frame}
 
-\begin{frame}{%
-\protect\hypertarget{obstacles}{%
-Obstacles}}
+\begin{frame}{Obstacles}
 
 \begin{enumerate}
-[1.]
+\def\labelenumi{\arabic{enumi}.}
 \item
-  Obstacle 1
+  Cleaning the data- The taxi data was the most challenging to clean due
+  to its size and inconsistencies in columns for specific years. Some
+  years were unable to be determined and were excluded for the taxi data
+  set.
 \item
-  Obstacle 2
+  Joining the data- Designated taxi zones were determined for taxi
+  pickup locations and crime locations in order to join the crime and
+  taxi data sets and an hourly\_date column was added to join taxi and
+  weather data sets
 \end{enumerate}
 
 \end{frame}
 
-\begin{frame}{%
-\protect\hypertarget{summary}{%
-Summary}}
+\begin{frame}{Summary}
+
+\begin{itemize}
+\tightlist
+\item
+  We collected NYC taxi trip data, NYC crime data and weather data from
+  Central Park, JFK and LaGuardia
+\item
+  We joined together the data sets through taxi zones (taxi\_zone\_id)
+  and hourly\_data
+\item
+  Our main questions revolve around whether taxi usage depends on crime
+  rate in a specific zone, how much weather plays a part in the
+  relationship between taxi usage and crime and how the distance of the
+  trip affects taxi usage in relationship to crime
+\item
+  WE FOUND THAT \_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\end{itemize}
 
 Brief wrap-up!
 
 \end{frame}
 
-\begin{frame}{%
-\protect\hypertarget{acknowledgements}{%
-Acknowledgements}}
+\begin{frame}{Acknowledgements}
 
-We thank the people from HPC support at NYU. Specially Santhosh Konda
-\href{mailto:hpc@nyu.edu}{\nolinkurl{hpc@nyu.edu}} for being reachable
-with very short response time.
+Thank you to everyone at NYU HPC Support for helping us with questions
+and problems we encountered during this project. Special thanks to
+Santhosh Konda \href{mailto:hpc@nyu.edu}{\nolinkurl{hpc@nyu.edu}} for
+responding so quickly to our e-mails!
 
 \end{frame}
 
-\begin{frame}{%
-\protect\hypertarget{references}{%
-References}}
+\begin{frame}{References}
 
 \begin{thebibliography}{1}
 
@@ -388,10 +412,12 @@ J.~Bendler, T.~Brandt, S.~Wagner, and D.~Neumann.
 \newblock In M.~Avital, J.~M. Leimeister, and U.~Schultze, editors, {\em ECIS},
   2014.
 
-\bibitem{fbiUniformCrime}
-{Federal Bureau of Investigation, Uniform Crime Reporting}.
-\newblock {Offenses Known to Law Enforcement by State by City}.
-\newblock 2016.
+\bibitem{Wang16}
+H.~Wang, D.~Kifer, C.~Graif, and Z.~Li.
+\newblock Crime rate inference with big data.
+\newblock In {\em Proceedings of the 22Nd ACM SIGKDD International Conference
+  on Knowledge Discovery and Data Mining}, KDD '16, pages 635--644, New York,
+  NY, USA, 2016. ACM.
 
 \bibitem{Traunmueller14}
 M.~Traunmueller, G.~Quattrone, and L.~Capra.
@@ -405,18 +431,27 @@ M.~Traunmueller, G.~Quattrone, and L.~Capra.
 \begin{frame}
 
 \begin{thebibliography}{1}
-\bibitem{Wang16}
-H.~Wang, D.~Kifer, C.~Graif, and Z.~Li.
-\newblock Crime rate inference with big data.
-\newblock In {\em Proceedings of the 22Nd ACM SIGKDD International Conference
-  on Knowledge Discovery and Data Mining}, KDD '16, pages 635--644, New York,
-  NY, USA, 2016. ACM.
+\bibitem{OUAC}
+A.~Bogomolov, B.~Lepri, J.~Staiano, N.~Oliver, F.~Pianesi, and A.~Pentland.
+\newblock Once upon a crime: Towards crime prediction from demographics and
+  mobile data, Sep 2014.
 
+\bibitem{Chainey}
+S.~Chainey, L.~Tompson, and S.~Uhlig.
+\newblock {The Utility of Hotspot Mapping for Predicting Spatial Patterns of
+  Crime}.
+\newblock {\em Security Journal}, 21(1-2):4--28, Feb 2008.
+
+\bibitem{visCrime}
+T.~Nakaya and K.~Yano.
+\newblock Visualising crime clusters in a space-time cube: An exploratory
+  data-analysis approach using space-time kernel density estimation and scan
+  statistics.
+\newblock {\em Transactions in GIS}, 14(3):223--239, 2010.
 \end{thebibliography}
 
 \end{frame}
 
-\hypertarget{thank-you}{%
-\section{Thank you!}\label{thank-you}}
+\section{Thank you!}\label{thank-you}
 
 \end{document}
