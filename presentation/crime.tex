@@ -1,3 +1,6 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
 \documentclass[10pt,ignorenonframetext,]{beamer}
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}{: }
@@ -10,12 +13,9 @@
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
 \else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
+  \usepackage{unicode-math}
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
 \usetheme[]{CambridgeUS}
@@ -25,20 +25,25 @@
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
 \IfFileExists{microtype.sty}{%
-\usepackage{microtype}
+\usepackage[]{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\newif\ifbibliography
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
 \hypersetup{
             pdftitle={Predicting crime rates using taxi rides in NYC},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
-
+\newif\ifbibliography
 % Prevent slide breaks in the middle of a paragraph:
 \widowpenalties 1 10000
 \raggedbottom
-
 \AtBeginPart{
   \let\insertpartnumber\relax
   \let\partname\relax
@@ -57,13 +62,17 @@
   \let\subsectionname\relax
   \frame{\subsectionpage}
 }
-
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{0}
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{graphicx, caption, subcaption}
 \author{Carlos Petricioli \and
     Varsha Muralidharan   \and
     Valerie Angulo  }
@@ -133,7 +142,9 @@
 \begin{document}
 \frame{\titlepage}
 
-\begin{frame}{Big Data Analytics Symposium - Fall 2017}
+\begin{frame}{%
+\protect\hypertarget{big-data-analytics-symposium---fall-2017}{%
+Big Data Analytics Symposium - Fall 2017}}
 
 \begin{block}{Analytics Project}
 
@@ -173,7 +184,9 @@ Predicting crime rates using taxi rides in NYC
 
 \end{frame}
 
-\begin{frame}{Motivation}
+\begin{frame}{%
+\protect\hypertarget{motivation}{%
+Motivation}}
 
 \begin{block}{Typical users of this application}
 
@@ -211,36 +224,9 @@ Members of the community and tourists, law enforcement
 
 \end{frame}
 
-\begin{frame}{Goodness}
-
-What steps were taken to assess the `goodness' of the analytic?\\
-\textless{} Short description of why you believe the results of your
-analytic are correct and can be trusted
-
-\begin{block}{cleaning data}
-
-\begin{itemize}
-\tightlist
-\item
-  Some of the taxi and crime data records had incorrectly
-  entered/ambigious date/time columns. We tried to identify the correct
-  dates and times for most of them so that we wouldn't have to throw
-  away those records
-\item
-  We had to make sure that the three data sets were related by zone
-\end{itemize}
-
-\end{block}
-
-\begin{block}{model testing}
-
-we made sure that --
-
-\end{block}
-
-\end{frame}
-
-\begin{frame}{Data Sources}
+\begin{frame}{%
+\protect\hypertarget{data-sources}{%
+Data Sources}}
 
 \begin{block}{Taxi rides data from TLC
 \href{http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml}{(\emph{Link})}}
@@ -249,23 +235,27 @@ we made sure that --
 \item
   It covers years from 2009 to June 2017.
 \item
-  Data Size: 2 TB
-\item
   The yellow taxi trip records include:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    pick-up and drop-off dates/times,
+  \item
+    pick-up and drop-off locations,
+  \item
+    trip distance,
+  \item
+    itemized fares,
+  \item
+    rate types,
+  \item
+    payment type,
+  \item
+    passenger counts.
+  \end{itemize}
 \item
-  pick-up and drop-off dates/times,
-\item
-  pick-up and drop-off locations,
-\item
-  trip distance,
-\item
-  itemized fares,
-\item
-  rate types,
-\item
-  payment type,
-\item
-  passenger counts.
+  \emph{Data Size}: 250 GB
 \end{itemize}
 
 \end{block}
@@ -281,14 +271,13 @@ we made sure that --
 2)}}}
 
 \begin{itemize}
-\tightlist
 \item
   This dataset includes all valid felony, misdemeanor, and violation
   crimes reported to the New York City Police Department (NYPD) from
   2006 to year to date data.
+\item
+  \emph{Data Size}: 1.5 GB
 \end{itemize}
-
--Data Size: 1.5 GB
 
 \end{block}
 
@@ -301,25 +290,31 @@ common ASCII format and common data model.
 
 \begin{itemize}
 \item
-  ISD's complete history of hour-by-hour readings for one user-specified
+  ISD’s complete history of hour-by-hour readings for one user-specified
   weather stations
 \item
   We selected:
-\item
-  Central Park
-\item
-  JFK
-\item
-  Laguardia
-\end{itemize}
 
--Data Size: 165 MB
+  \begin{itemize}
+  \tightlist
+  \item
+    Central Park
+  \item
+    JFK
+  \item
+    Laguardia
+  \end{itemize}
+\item
+  \emph{Data Size}: 165 MB
+\end{itemize}
 
 \end{block}
 
 \end{frame}
 
-\begin{frame}{Design Diagram}
+\begin{frame}{%
+\protect\hypertarget{design-diagram}{%
+Design Diagram}}
 
 \begin{center}
 \includegraphics[height=.6\textheight]{img/DesignFlowDiagram.jpg}
@@ -337,12 +332,249 @@ common ASCII format and common data model.
 
 \end{frame}
 
-\begin{frame}{Results}
+\begin{frame}{%
+\protect\hypertarget{obstacles}{%
+Obstacles}}
+
+\begin{block}{Cleaning the data: Taxis}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  The \textbf{taxi data} (250 GB) was the most challenging to clean.
+\end{itemize}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Inconsistencies in columns: extra columns for some years.
+\end{itemize}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Rows with extra commas: avoiding an easy parse.
+\end{itemize}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Row values for each year were not that dirty but the data values were
+  completely different for different years.
+\end{itemize}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  The dictionary that defines the labels refers to the data from 2017,
+  so we needed to figure out the meaning of labels for previous years.
+\end{itemize}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Dates needed to be cleaned.
+\end{itemize}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Meaningful interpretations of other dates could not be made for
+  certain records and these records had to be filtered.
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{block}{Cleaning the data: Taxis}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  To figure this out we needed to iterate through every row of the data
+  because new things came up every time we thought we were done with the
+  cleaning.
+\item
+  Even after we cleaned all the categorical variables and we thought we
+  were done, many numerical inconsistencies appeared.
+\item
+  Longitude/Latitude, like not even in NY or simply null.
+\item
+  Negative, but consistent values for amounts.
+\item
+  Weird trip distances, like greater than 1000 miles.
+\item
+  Exorbitant total amounts (which might not be a problem because most
+  were negotiated fares)
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{block}{Cleaning the data: Taxis}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  2016 and 2017 do not have longitude and latitude, just zone id.
+\item
+  This became one of the greater obstacles, because we needed to assign
+  a zone id to all the previous years.
+\item
+  About 1.2 billion x 14 thousand \(\approx\) 16,800 \(\approx\) 2
+  1.6x10\^{} 13 distances computed (just for pick-up)
+
+  \begin{figure}
+  \label{fig:zones}
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+  \centering
+  \label{fig:zones_shape}
+  \includegraphics[height=1.4in]{../latex/images/taxi_zones_shape}
+  \caption{Shape}
+  \end{subfigure}%
+  ~ 
+  \begin{subfigure}[t]{0.45\textwidth}
+  \centering
+  \label{fig:zones_raster}
+  \includegraphics[height=1.4in]{../latex/images/taxi_zones_raster}
+  \caption{Raster}
+  \end{subfigure}
+  \caption{NYC Taxi zones file formats}
+  \end{figure}
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{figure}
+    \begin{subfigure}[t]{0.8\textwidth}
+        \centering
+        \label{fig:zones_both}
+        \includegraphics[width=0.5\textwidth]{../latex/images/both}
+        \caption{Both}
+    \end{subfigure}
+    \caption{NYC Taxi zones file formats}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{block}{Cleaning the data: Crime}
+
+\begin{itemize}
+\tightlist
+\item
+  Crime data was reasonably clean.
+\item
+  The most challenging factor here was that we had a lot of missing
+  values for some columns so we needed to setup a schema that accepted
+  this fact.
+\end{itemize}
+
+\end{block}
+
+\begin{block}{Cleaning the data: Weather}
+
+\begin{itemize}
+\tightlist
+\item
+  Weather data was the most decent.
+\item
+  We basically just needed made sure that the data was clean which was
+  the case.
+\item
+  The only major issue was to figure out a way to assign weather data to
+  the taxis.
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{block}{Joining the data}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  In the cleaning process we assigned taxi zones for taxi pickup and
+  drop-off locations.
+\end{itemize}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  So we repeated this process but this time instead of assigning zones
+  we assigned a station (JFK, La Guardia, Central Park) by computing the
+  min distance from the pickup locations (long/lat) to the weather
+  station.
+\item
+  We had another problem here because we did not had (long/lat) for the
+  recent data.
+\item
+  So, we estimated the centroids on the pick-up zones and then computed
+  them min distance to the weather stations.
+\end{itemize}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Finally taxis were joined to crime by using time periods of one hour.
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{%
+\protect\hypertarget{goodness}{%
+Goodness}}
+
+\begin{block}{Consistent data}
+
+\begin{itemize}
+\tightlist
+\item
+  One of our main concerns was that the data\\
+  Some of the taxi and crime data records had incorrectly
+  entered/ambigious date/time columns. We tried to identify the correct
+  dates and times for most of them so that we
+  wouldn\textless{}U+2019\textgreater{}t have to throw away those
+  records
+\item
+  We had to make sure that the three data sets were related by zone
+\end{itemize}
+
+\end{block}
+
+\begin{block}{model testing}
+
+we made sure that –
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{%
+\protect\hypertarget{results}{%
+Results}}
 
 3 results, insights, observations, outcomes
 
 \begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+[1.]
 \item
   Result 1
 \item
@@ -353,25 +585,9 @@ common ASCII format and common data model.
 
 \end{frame}
 
-\begin{frame}{Obstacles}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Cleaning the data- The taxi data was the most challenging to clean due
-  to its size and inconsistencies in columns for specific years.
-  Meaningful interpretations of dates could not be made for certain
-  records and these records had to be filtered.
-\item
-  Joining the data- Designated taxi zones had to be determined for taxi
-  pickup locations and crime locations in order to join the crime and
-  taxi data sets and an hourly\_date column was added to join taxi and
-  weather data sets.
-\end{enumerate}
-
-\end{frame}
-
-\begin{frame}{Summary}
+\begin{frame}{%
+\protect\hypertarget{summary}{%
+Summary}}
 
 \begin{itemize}
 \tightlist
@@ -392,7 +608,9 @@ common ASCII format and common data model.
 
 \end{frame}
 
-\begin{frame}{Acknowledgements}
+\begin{frame}{%
+\protect\hypertarget{acknowledgements}{%
+Acknowledgements}}
 
 Thank you to everyone at NYU HPC Support for helping us with questions
 and problems we encountered during this project. Special thanks to
@@ -401,7 +619,9 @@ responding so quickly to our e-mails!
 
 \end{frame}
 
-\begin{frame}{References}
+\begin{frame}{%
+\protect\hypertarget{references}{%
+References}}
 
 \begin{thebibliography}{1}
 
@@ -452,6 +672,7 @@ T.~Nakaya and K.~Yano.
 
 \end{frame}
 
-\section{Thank you!}\label{thank-you}
+\hypertarget{thank-you}{%
+\section{Thank you!}\label{thank-you}}
 
 \end{document}

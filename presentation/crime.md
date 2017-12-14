@@ -1,27 +1,5 @@
----
-title: " Predicting crime rates using taxi rides in NYC"
-institution: "NYU"
-date: "12/15/2017"
-fontsize: 10pt
-output: 
-    slidy_presentation: 
-      self_contained: true
-      fig_retina: 100
-      keep_md: yes
-      footer: " Predicting crime rates using taxi rides in NYC"
-    beamer_presentation:
-      keep_tex: yes
-      theme: "CambridgeUS"
-      colortheme: "dove"
-      fonttheme: "structurebold"
-      includes:
-        in_header: default.tex
-params: 
-    set_title: " Predicting crime rates using taxi rides in NYC"
-    set_authors: "Carlos Petricioli (cpa253),
-    Varsha Muralidharan  (vm1370) and
-    Valerie Angulo (vaa238) "
----
+# `r params$set_title`
+12/15/2017  
 
 ## Big Data Analytics Symposium - Fall 2017
 
@@ -58,26 +36,14 @@ Members of the community and tourists, law enforcement
 - People who live in an area are aware of the safety of their surroundings and this awareness can be represented by how comfortable residents may be in walking or taking the subway versus taking more immediate, more expensive, modes of transportation such as taxis. 
 - This analytic can benefit the community and tourists by influencing their current and future transportation behaviors 
 
-## Goodness
-
-  What steps were taken to assess the ‘goodness’ of the analytic?         
-  < Short description of why you believe the results of your analytic are correct and can be trusted 
-
-### cleaning data
-- Some of the taxi and crime data records had incorrectly entered/ambigious date/time columns. We tried to identify the correct dates and times for most of them so that we wouldn’t have to throw away those records
-- We had to make sure that the three data sets were related by zone
-
-### model testing
-we made sure that --
 
 ## Data Sources
 
 
 ### Taxi rides data from TLC [(*Link*)](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml)
 
-- It covers years from 2009 to June 2017.
 
-- Data Size: 2 TB
+- It covers years from 2009 to June 2017.
 
 - The yellow taxi trip records include:
 
@@ -89,6 +55,7 @@ we made sure that --
   + payment type, 
   + passenger counts. 
 
+- *Data Size*: 250 GB
 
 ***
 
@@ -96,7 +63,7 @@ we made sure that --
 
 - This dataset includes all valid felony, misdemeanor, and violation crimes reported to the New York City Police Department (NYPD) from 2006 to year to date data.
 
--Data Size: 1.5 GB
+- *Data Size*:  1.5 GB
 
 ### NOAA Weather stations data [*(Link)*](https://www.ncdc.noaa.gov/isd)
 
@@ -109,7 +76,7 @@ The *Integrated Surface Database (ISD)* consists of global hourly ansynoptic obs
   + JFK 
   + Laguardia
 
--Data Size: 165 MB
+- *Data Size*:  165 MB
 
 ## Design Diagram
 
@@ -120,6 +87,110 @@ The *Integrated Surface Database (ISD)* consists of global hourly ansynoptic obs
 ### Platform: 
 - NYU HPC cluster (Dumbo)
 
+## Obstacles
+
+### Cleaning the data: Taxis
+
+>- The **taxi data** (250 GB) was the most challenging to clean.
+
+>- Inconsistencies in columns: extra columns for some years.
+
+>- Rows with extra commas: avoiding an easy parse.
+
+>- Row values for each year were not that dirty but the data values were completely different for different years.
+
+>- The dictionary that defines the labels refers to the data from 2017, so we needed to figure out the meaning of labels for previous years.
+
+>- Dates needed to be cleaned.
+
+>- Meaningful interpretations of other dates could not be made for certain records and these records had to be filtered.
+
+***
+
+### Cleaning the data: Taxis
+
+>- To figure this out we needed to iterate through every row of the data because new things came up every time we thought we were done with the cleaning.
+  >- Even after we cleaned all the categorical variables and we thought we were done, many numerical inconsistencies appeared.
+  >- Longitude/Latitude, like not even in NY or simply null.
+  >- Negative, but consistent values for amounts.
+  >- Weird trip distances, like greater than 1000 miles.
+  >- Exorbitant total amounts (which might not be a problem because most were negotiated fares)
+
+***
+
+### Cleaning the data: Taxis
+  >- 2016 and 2017 do not have longitude and latitude, just zone id. 
+  >- This became one of the greater obstacles, because we needed to assign a zone id to all the previous years. 
+  >- About 1.2 billion x 14 thousand $\approx$ 16,800 $\approx$ 2 1.6x10^ 13 distances computed (just for pick-up) 
+  \begin{figure}
+  \label{fig:zones}
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \label{fig:zones_shape}
+        \includegraphics[height=1.4in]{../latex/images/taxi_zones_shape}
+        \caption{Shape}
+    \end{subfigure}%
+    ~ 
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \label{fig:zones_raster}
+        \includegraphics[height=1.4in]{../latex/images/taxi_zones_raster}
+        \caption{Raster}
+    \end{subfigure}
+    \caption{NYC Taxi zones file formats}
+  \end{figure}
+
+***
+
+\begin{figure}
+    \begin{subfigure}[t]{0.8\textwidth}
+        \centering
+        \label{fig:zones_both}
+        \includegraphics[width=0.5\textwidth]{../latex/images/both}
+        \caption{Both}
+    \end{subfigure}
+    \caption{NYC Taxi zones file formats}
+\end{figure}
+
+***
+
+### Cleaning the data: Crime
+
+- Crime data was reasonably clean. 
+- The most challenging factor here was that we had a lot of missing values for some columns so we needed to setup a schema that accepted this fact.
+
+### Cleaning the data: Weather
+
+- Weather data was the most decent. 
+- We basically just needed made sure that the data was clean which was the case.
+- The only major issue was to figure out a way to assign weather data to the taxis.
+
+
+***
+
+### Joining the data
+
+>- In the cleaning process we assigned taxi zones for taxi pickup and drop-off locations.
+
+>- So we repeated this process but this time instead of assigning zones we assigned a station (JFK, La Guardia, Central Park) by computing the min distance from the pickup locations (long/lat) to the weather station.
+>- We had another problem here because we did not had (long/lat) for the recent data. 
+>- So, we estimated the centroids on the pick-up zones and then computed them min distance to the weather stations.
+
+
+>- Finally taxis were joined to crime by using time periods of one hour. 
+ 
+
+## Goodness
+
+### Consistent data
+- One of our main concerns was that the data  
+Some of the taxi and crime data records had incorrectly entered/ambigious date/time columns. We tried to identify the correct dates and times for most of them so that we wouldn<U+2019>t have to throw away those records
+- We had to make sure that the three data sets were related by zone
+
+### model testing
+we made sure that --
+
 ## Results
   3 results, insights, observations, outcomes
 
@@ -129,11 +200,6 @@ The *Integrated Surface Database (ISD)* consists of global hourly ansynoptic obs
 
 3. Result 3
 
-## Obstacles
-
-1. Cleaning the data- The taxi data was the most challenging to clean due to its size and inconsistencies in columns for specific years. Meaningful interpretations of dates could not be made for certain records and these records had to be filtered.
-
-2. Joining the data- Designated taxi zones had to be determined for taxi pickup locations and crime locations in order to join the crime and taxi data sets and an hourly_date column was added to join taxi and weather data sets.
 
 ## Summary
 
