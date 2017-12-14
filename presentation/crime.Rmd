@@ -125,7 +125,7 @@ The *Integrated Surface Database (ISD)* consists of global hourly ansynoptic obs
 
 >- The dictionary that defines the labels refers to the data from 2017, so we needed to figure out the meaning of labels for previous years.
 
->- Dates needed to be cleaned.
+>- Dates needed to be cleaned. (**24:00:00 vs 00:00:00**)
 
 >- Meaningful interpretations of other dates could not be made for certain records and these records had to be filtered.
 

@@ -101,7 +101,7 @@ The *Integrated Surface Database (ISD)* consists of global hourly ansynoptic obs
 
 >- The dictionary that defines the labels refers to the data from 2017, so we needed to figure out the meaning of labels for previous years.
 
->- Dates needed to be cleaned.
+>- Dates needed to be cleaned. (**24:00:00 vs 00:00:00**)
 
 >- Meaningful interpretations of other dates could not be made for certain records and these records had to be filtered.
 
@@ -175,8 +175,7 @@ The *Integrated Surface Database (ISD)* consists of global hourly ansynoptic obs
 
 >- So we repeated this process but this time instead of assigning zones we assigned a station (JFK, La Guardia, Central Park) by computing the min distance from the pickup locations (long/lat) to the weather station.
 >- We had another problem here because we did not had (long/lat) for the recent data. 
->- So, we estimated the centroids on the pick-up zones and then computed them min distance to the weather stations.
-
+>- So, we estimated the centroids on the pick-up zones and then computed the min distance to the weather stations.
 
 >- Finally taxis were joined to crime by using time periods of one hour. 
  

@@ -465,7 +465,7 @@ list-style-type: none;
 <li>The dictionary that defines the labels refers to the data from 2017, so we needed to figure out the meaning of labels for previous years.</li>
 </ul>
 <ul class="incremental">
-<li>Dates needed to be cleaned.</li>
+<li>Dates needed to be cleaned. (<strong>24:00:00 vs 00:00:00</strong>)</li>
 </ul>
 <ul class="incremental">
 <li>Meaningful interpretations of other dates could not be made for certain records and these records had to be filtered.</li>
@@ -520,7 +520,7 @@ list-style-type: none;
 <ul class="incremental">
 <li>So we repeated this process but this time instead of assigning zones we assigned a station (JFK, La Guardia, Central Park) by computing the min distance from the pickup locations (long/lat) to the weather station.</li>
 <li>We had another problem here because we did not had (long/lat) for the recent data.</li>
-<li>So, we estimated the centroids on the pick-up zones and then computed them min distance to the weather stations.</li>
+<li>So, we estimated the centroids on the pick-up zones and then computed the min distance to the weather stations.</li>
 </ul>
 <ul class="incremental">
 <li>Finally taxis were joined to crime by using time periods of one hour.</li>
