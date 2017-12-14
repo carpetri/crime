@@ -150,7 +150,7 @@ for y in xrange(2016,2018):
 			.filter( df.total_amount < 1000 )
 
 		
-		df = df.join(station_map,df.pickup_location_id == station_map.taxi_zone_id).drop('taxi_zone_id').head()
+		df = df.join(station_map,df.pickup_location_id == station_map.taxi_zone_id).drop('taxi_zone_id')
 
 
 		output_folder = '/user/%s/rbda/crime/data/taxi_data_clean_weather/yellow/year=%d/month=%02d' %(user,y,m)
