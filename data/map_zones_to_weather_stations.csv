@@ -1,0 +1,314 @@
+pickup_location_id,station
+1,Central Park
+2,JFK
+3,La Guardia
+4,Central Park
+5,Central Park
+6,Central Park
+7,La Guardia
+7,Central Park
+8,Central Park
+8,La Guardia
+9,La Guardia
+9,JFK
+10,JFK
+11,Central Park
+12,Central Park
+13,Central Park
+14,Central Park
+15,La Guardia
+16,La Guardia
+16,JFK
+17,Central Park
+18,La Guardia
+19,JFK
+20,La Guardia
+21,Central Park
+22,Central Park
+23,Central Park
+24,Central Park
+25,Central Park
+26,Central Park
+27,JFK
+28,JFK
+28,La Guardia
+29,JFK
+29,Central Park
+30,JFK
+31,La Guardia
+32,La Guardia
+33,Central Park
+34,Central Park
+35,La Guardia
+36,La Guardia
+36,Central Park
+37,La Guardia
+37,Central Park
+38,JFK
+39,La Guardia
+39,JFK
+40,Central Park
+41,Central Park
+42,Central Park
+43,Central Park
+44,Central Park
+44,JFK
+45,Central Park
+46,La Guardia
+47,La Guardia
+48,Central Park
+49,Central Park
+50,Central Park
+51,La Guardia
+52,Central Park
+53,La Guardia
+54,Central Park
+55,JFK
+55,Central Park
+56,La Guardia
+58,La Guardia
+59,La Guardia
+60,La Guardia
+61,La Guardia
+61,Central Park
+62,Central Park
+63,La Guardia
+63,JFK
+64,JFK
+64,La Guardia
+65,Central Park
+66,Central Park
+67,Central Park
+68,Central Park
+69,La Guardia
+69,Central Park
+70,La Guardia
+71,JFK
+71,La Guardia
+71,Central Park
+72,La Guardia
+72,Central Park
+73,La Guardia
+74,Central Park
+75,Central Park
+76,JFK
+76,La Guardia
+77,JFK
+77,La Guardia
+78,La Guardia
+79,Central Park
+80,La Guardia
+80,Central Park
+81,La Guardia
+82,La Guardia
+83,La Guardia
+84,JFK
+84,Central Park
+85,Central Park
+86,JFK
+87,Central Park
+88,Central Park
+89,Central Park
+90,Central Park
+91,JFK
+91,Central Park
+91,La Guardia
+92,La Guardia
+93,La Guardia
+94,La Guardia
+95,La Guardia
+96,La Guardia
+97,Central Park
+98,La Guardia
+98,JFK
+99,Central Park
+100,Central Park
+101,JFK
+101,La Guardia
+102,La Guardia
+103,Central Park
+106,Central Park
+107,Central Park
+108,JFK
+108,Central Park
+109,Central Park
+110,Central Park
+110,JFK
+111,Central Park
+112,Central Park
+113,Central Park
+114,Central Park
+115,Central Park
+116,Central Park
+117,JFK
+118,Central Park
+119,Central Park
+120,Central Park
+121,La Guardia
+121,JFK
+122,JFK
+123,JFK
+123,Central Park
+124,JFK
+125,Central Park
+126,La Guardia
+127,Central Park
+127,La Guardia
+128,La Guardia
+128,Central Park
+129,La Guardia
+130,JFK
+131,JFK
+132,JFK
+133,Central Park
+134,La Guardia
+134,JFK
+135,JFK
+135,La Guardia
+136,Central Park
+136,La Guardia
+137,Central Park
+138,La Guardia
+139,JFK
+140,Central Park
+141,Central Park
+142,Central Park
+143,Central Park
+144,Central Park
+145,Central Park
+146,Central Park
+147,La Guardia
+148,Central Park
+149,JFK
+149,Central Park
+150,JFK
+151,Central Park
+152,Central Park
+153,La Guardia
+154,JFK
+155,JFK
+156,Central Park
+157,La Guardia
+157,Central Park
+158,Central Park
+159,Central Park
+159,La Guardia
+160,La Guardia
+161,Central Park
+162,Central Park
+163,Central Park
+164,Central Park
+165,Central Park
+166,Central Park
+167,La Guardia
+168,La Guardia
+168,Central Park
+169,La Guardia
+170,Central Park
+171,La Guardia
+172,Central Park
+173,La Guardia
+174,La Guardia
+175,La Guardia
+175,JFK
+176,Central Park
+176,JFK
+177,La Guardia
+178,Central Park
+179,Central Park
+179,La Guardia
+180,JFK
+181,Central Park
+182,La Guardia
+183,La Guardia
+184,La Guardia
+185,La Guardia
+186,Central Park
+187,Central Park
+188,La Guardia
+188,Central Park
+189,Central Park
+190,Central Park
+191,JFK
+192,La Guardia
+193,Central Park
+194,Central Park
+194,La Guardia
+195,Central Park
+196,La Guardia
+197,JFK
+197,La Guardia
+198,La Guardia
+199,La Guardia
+200,La Guardia
+200,Central Park
+201,JFK
+202,Central Park
+203,JFK
+204,Central Park
+205,JFK
+206,Central Park
+207,La Guardia
+208,La Guardia
+209,Central Park
+210,JFK
+211,Central Park
+212,La Guardia
+213,La Guardia
+214,Central Park
+215,JFK
+216,JFK
+217,Central Park
+218,JFK
+219,JFK
+220,Central Park
+220,La Guardia
+221,Central Park
+222,JFK
+223,Central Park
+223,La Guardia
+224,Central Park
+225,La Guardia
+225,Central Park
+226,Central Park
+226,La Guardia
+227,Central Park
+228,Central Park
+229,Central Park
+230,Central Park
+231,Central Park
+232,Central Park
+233,Central Park
+234,Central Park
+235,La Guardia
+235,Central Park
+236,Central Park
+237,Central Park
+238,Central Park
+239,Central Park
+240,La Guardia
+241,La Guardia
+242,La Guardia
+243,Central Park
+244,Central Park
+245,Central Park
+246,Central Park
+247,La Guardia
+247,Central Park
+248,La Guardia
+249,Central Park
+250,La Guardia
+251,Central Park
+252,La Guardia
+253,La Guardia
+254,La Guardia
+255,Central Park
+256,Central Park
+257,Central Park
+258,La Guardia
+258,JFK
+259,La Guardia
+260,La Guardia
+261,Central Park
+262,Central Park
+263,Central Park
