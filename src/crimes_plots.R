@@ -235,12 +235,12 @@ dat[!grepl( 'Airport',(dat$zone %>% as.character() ) ),] %>%
   geom_point()+ 
   scale_x_log10()+
   theme_bw() +
-  facet_wrap(~borough,scales = 'free',ncol = 2)+
+  facet_wrap(~borough,scales = 'free',ncol = 3)+
   geom_smooth(color='red',method = "lm", formula = y ~ splines::bs(x, 1)) +
   # geom_smooth(color='red',method = "lm", formula = y ~ splines::bs(x, 1)) +
   labs(x='Log(number of pickups)', y = 'Total crimes', caption='*Excluding airports trips')
 ggsave(paste0('../img/scatter_crimes_taxis.pdf'),height = 7, width = 6 )
-
+ggsave(paste0('../img/scatter_crimes_taxis_pres.pdf'),height = 4, width = 8 )
 dat[ 'airport' %in% dat$zone ,]
 
 # dat[dat$taxi_zone_id != 138 & dat$taxi_zone_id != 132 &  , ]
@@ -272,17 +272,20 @@ dat_crimes
 # have different levels of crime rates when we compare at times 
 # with and without rain (or different weather variables)?
 
-dat
-dat %>% dplyr::filter(!is.na(rain)) %>% 
-  ggplot(aes(x=n_pick, y = n_crimes, group = rain , colour = rain))+ 
-  geom_point()+ 
+dat$rain %>% factor(levels = c(T,F),labels=c('Rain > 10 in.','Rain <= 10 in.'))
+dat %>% 
+  dplyr::filter(!is.na(rain)) %>% 
+  dplyr::mutate(rain = factor(rain,levels = c(T,F),labels=c('Rain > 10 in.','Rain <= 10 in.'))) %>% 
+  ggplot(aes(x=n_pick, y = n_crimes, group = rain ))+ 
+  geom_point(colour = 'black', alpha = .6)+ 
   scale_x_log10()+
   theme_bw() + 
-  facet_grid(rain~borough,scales = 'free',ncol = 2)+
-  geom_smooth(color='red',method = "lm", formula = y ~ splines::bs(x, 1)) +
-  # geom_smooth(color='red',method = "lm", formula = y ~ splines::bs(x, 1)) +
-  labs(x='Log(number of pickups)', y = 'Total crimes', caption='*Excluding airports trips')
+  # geom_smooth(color='red', method = 'lm') +
+  geom_smooth(color='red',method = "glm", formula = y ~ splines::ns(x, 2))+
+  facet_grid(rain~borough,scales='free')+
+  labs(x='Log(number of pickups)', y = 'Total crimes', caption='*Excluding airports trips')+
+  theme(legend.position="none")
 
-ggsave(paste0('../img/scatter_crimes_taxis.pdf'),height = 7, width = 6 )
+ ggsave(paste0('../img/scatter_crimes_taxis_rain.pdf'),height = 4, width = 12)
 
 
