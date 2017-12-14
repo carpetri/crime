@@ -384,7 +384,7 @@ list-style-type: none;
 <ul>
 <li>Our study looks at the relationship between crime rates and taxi usage in New York City.</li>
 <li>Our hypothesis is that people are less likely to walk in areas subjectively deemed more dangerous and will instead opt to use more reliable and immediate transportation such as designated taxis.</li>
-<li>WE FOUND THAT ____.</li>
+<li>We found evidence that supports that our hypothesis holds.</li>
 </ul>
 </div>
 <div id="motivation" class="slide section level2">
@@ -464,12 +464,6 @@ list-style-type: none;
 <ul class="incremental">
 <li>The dictionary that defines the labels refers to the data from 2017, so we needed to figure out the meaning of labels for previous years.</li>
 </ul>
-<ul class="incremental">
-<li>Dates needed to be cleaned. (<strong>24:00:00 vs 00:00:00</strong>)</li>
-</ul>
-<ul class="incremental">
-<li>Meaningful interpretations of other dates could not be made for certain records and these records had to be filtered.</li>
-</ul>
 </div>
 <div class="slide section level2">
 
@@ -501,13 +495,18 @@ list-style-type: none;
 
 <h3 id="cleaning-the-data-crime">Cleaning the data: Crime</h3>
 <ul>
-<li>Crime data was reasonably clean.</li>
-<li>The most challenging factor here was that we had a lot of missing values for some columns so we needed to setup a schema that accepted this fact.</li>
+<li><p>Dates needed to be cleaned. (<strong>24:00:00 vs 00:00:00</strong>)</p></li>
+<li>Meaningful interpretations of other dates could not be made for certain records and these records had to be filtered for example:
+<ul>
+<li>1016 <span class="math inline">\(\rightarrow\)</span> 2016.</li>
+<li>1026 <span class="math inline">\(\rightarrow\)</span> dropped.</li>
+</ul></li>
+<li><p>The most challenging factor here was that we had a lot of missing values for some columns so we needed to setup a schema that accepted this fact.</p></li>
 </ul>
 <h3 id="cleaning-the-data-weather">Cleaning the data: Weather</h3>
 <ul>
 <li>Weather data was the most decent.</li>
-<li>We basically just needed made sure that the data was clean which was the case.</li>
+<li>We basically just checked that the data was clean.</li>
 <li>The only major issue was to figure out a way to assign weather data to the taxis.</li>
 </ul>
 </div>
@@ -519,7 +518,7 @@ list-style-type: none;
 </ul>
 <ul class="incremental">
 <li>So we repeated this process but this time instead of assigning zones we assigned a station (JFK, La Guardia, Central Park) by computing the min distance from the pickup locations (long/lat) to the weather station.</li>
-<li>We had another problem here because we did not had (long/lat) for the recent data.</li>
+<li>We had another problem here because we did not have (long/lat) for the recent data.</li>
 <li>So, we estimated the centroids on the pick-up zones and then computed the min distance to the weather stations.</li>
 </ul>
 <ul class="incremental">
@@ -530,29 +529,39 @@ list-style-type: none;
 <h1>Goodness</h1>
 <h3 id="consistent-data">Consistent data</h3>
 <ul>
-<li>One of our main concerns was that the data<br />
-Some of the taxi and crime data records had incorrectly entered/ambigious date/time columns. We tried to identify the correct dates and times for most of them so that we wouldn&lt;U+2019&gt;t have to throw away those records</li>
-<li>We had to make sure that the three data sets were related by zone</li>
+<li>One of our main concerns was the consistency of the data through time and among the different sources, so we made a lot of effort to keep all variables, even the ones we ended up not using.</li>
 </ul>
-<h3 id="model-testing">model testing</h3>
-<p>we made sure that –</p>
+<h3 id="empirical-observations-not-causality">Empirical observations not causality</h3>
+<ul>
+<li>We are not trying to explain causality so our observations should be interpreted as empirical correlations and raw insight obtained from a very long cleaning data phase</li>
+</ul>
 </div>
 <div id="results" class="slide section level2">
 <h1>Results</h1>
-<p>3 results, insights, observations, outcomes</p>
-<ol style="list-style-type: decimal">
-<li><p>Result 1</p></li>
-<li><p>Result 2</p></li>
-<li><p>Result 3</p></li>
-</ol>
+<ul>
+<li>Opposite colors support our hypothesis.
+</li>
+</ul>
+</div>
+<div class="slide section level2">
+
+
+</div>
+<div class="slide section level2">
+
+<h3 id="crimes-and-taxis">Crimes and taxis</h3>
+
+</div>
+<div class="slide section level2">
+
+<h3 id="results-when-considering-rain">Results when considering Rain</h3>
+
 </div>
 <div id="summary" class="slide section level2">
 <h1>Summary</h1>
 <ul>
-<li>We collected NYC taxi trip data, NYC crime data and weather data from Central Park, JFK and LaGuardia</li>
-<li>We joined together the data sets through taxi zones (taxi_zone_id) and hourly_data</li>
-<li>Our main questions revolve around whether taxi usage depends on crime rate in a specific zone, how much weather plays a part in the relationship between taxi usage and crime and how the distance of the trip affects taxi usage in relationship to crime</li>
-<li>WE FOUND THAT ______________</li>
+<li><p>We collected NYC taxi trip data, NYC crime data and weather data from Central Park, JFK and LaGuardia and we were able to join everything at a very granular level.</p></li>
+<li><p>We found evidence that suggests that our hypothesis might be true, places that have higher levels of crime showed evidence of having a higher number of pickups, especially when taking rain into account.</p></li>
 </ul>
 </div>
 <div id="acknowledgements" class="slide section level2">

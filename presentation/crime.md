@@ -21,7 +21,7 @@
 
 - Our study looks at the relationship between crime rates and taxi usage in New York City. 
 - Our hypothesis is that people are less likely to walk in areas subjectively deemed more dangerous and will instead opt to use more reliable and immediate transportation such as designated taxis. 
-- WE FOUND THAT ____. 
+- We found evidence that supports that our hypothesis holds.
 
 ## Motivation
 
@@ -101,9 +101,6 @@ The *Integrated Surface Database (ISD)* consists of global hourly ansynoptic obs
 
 >- The dictionary that defines the labels refers to the data from 2017, so we needed to figure out the meaning of labels for previous years.
 
->- Dates needed to be cleaned. (**24:00:00 vs 00:00:00**)
-
->- Meaningful interpretations of other dates could not be made for certain records and these records had to be filtered.
 
 ***
 
@@ -157,13 +154,18 @@ The *Integrated Surface Database (ISD)* consists of global hourly ansynoptic obs
 
 ### Cleaning the data: Crime
 
-- Crime data was reasonably clean. 
+- Dates needed to be cleaned. (**24:00:00 vs 00:00:00**)
+
+- Meaningful interpretations of other dates could not be made for certain records and these records had to be filtered for example:
+  - 1016 $\rightarrow$ 2016. 
+  - 1026 $\rightarrow$ dropped.
+
 - The most challenging factor here was that we had a lot of missing values for some columns so we needed to setup a schema that accepted this fact.
 
 ### Cleaning the data: Weather
 
 - Weather data was the most decent. 
-- We basically just needed made sure that the data was clean which was the case.
+- We basically just checked that the data was clean.
 - The only major issue was to figure out a way to assign weather data to the taxis.
 
 
@@ -174,7 +176,7 @@ The *Integrated Surface Database (ISD)* consists of global hourly ansynoptic obs
 >- In the cleaning process we assigned taxi zones for taxi pickup and drop-off locations.
 
 >- So we repeated this process but this time instead of assigning zones we assigned a station (JFK, La Guardia, Central Park) by computing the min distance from the pickup locations (long/lat) to the weather station.
->- We had another problem here because we did not had (long/lat) for the recent data. 
+>- We had another problem here because we did not have (long/lat) for the recent data. 
 >- So, we estimated the centroids on the pick-up zones and then computed the min distance to the weather stations.
 
 >- Finally taxis were joined to crime by using time periods of one hour. 
@@ -183,29 +185,80 @@ The *Integrated Surface Database (ISD)* consists of global hourly ansynoptic obs
 ## Goodness
 
 ### Consistent data
-- One of our main concerns was that the data  
-Some of the taxi and crime data records had incorrectly entered/ambigious date/time columns. We tried to identify the correct dates and times for most of them so that we wouldn<U+2019>t have to throw away those records
-- We had to make sure that the three data sets were related by zone
 
-### model testing
-we made sure that --
+- One of our main concerns was the consistency of the data through time and among the different sources, so we made a lot of effort to keep all variables, even the ones we ended up not using.
+
+### Empirical observations not causality
+- We are not trying to explain causality so our observations should be interpreted as empirical correlations and raw insight obtained from a very  long cleaning data phase
 
 ## Results
-  3 results, insights, observations, outcomes
+- Opposite colors support our hypothesis.
+\begin{figure}
+  \label{fig:zones}
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \label{fig:zones_shape}
+        \includegraphics[width=1\textwidth]{../img/crimes_per_zone_2015_Manhattan}
+        \caption{Crimes in Manhattan}
+    \end{subfigure}%
+    ~ 
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \label{fig:zones_raster}
+        \includegraphics[width=1\textwidth]{../img/taxis_2015_Manhattan}
+        \caption{Pickups in Manhattan}
+    \end{subfigure}
+    \caption{Crime and Pickups in Manhattan, 2015}
+  \end{figure}
 
-1. Result 1
+***
+\begin{figure}
+  \label{fig:zones}
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \label{fig:zones_shape}
+        \includegraphics[width=1\textwidth]{../img/crimes_per_zone_2015_Queens}
+        \caption{Crimes in Queens}
+    \end{subfigure}%
+    ~ 
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \label{fig:zones_raster}
+        \includegraphics[width=1\textwidth]{../img/taxis_2015_Queens}
+        \caption{Pickups in Queens}
+    \end{subfigure}
+    \caption{Crime and Pickups in Queens, 2015}
+  \end{figure}
 
-2. Result 2
+***
 
-3. Result 3
+### Crimes and taxis
+
+\begin{figure} 
+\centering
+\includegraphics[width=1\textwidth]{../img/scatter_crimes_taxis_pres.pdf}
+\caption{Crimes and pickups per zone}
+\end{figure}
+
+***
+
+### Results when considering Rain
+
+\begin{figure} 
+\centering
+\includegraphics[width=1\textwidth]{../img/scatter_crimes_taxis_rain.pdf}
+\caption{Crimes and hourly pickups per zone in rain}
+\end{figure}
 
 
 ## Summary
 
-- We collected NYC taxi trip data, NYC crime data and weather data from Central Park, JFK and LaGuardia
-- We joined together the data sets through taxi zones (taxi_zone_id) and hourly_data
-- Our main questions revolve around whether taxi usage depends on crime rate in a specific zone, how much weather plays a part in the relationship between taxi usage and crime and how the distance of the trip affects taxi usage in relationship to crime
-- WE FOUND THAT ______________
+- We collected NYC taxi trip data, NYC crime data and weather data from Central Park, JFK and LaGuardia and we were able to join everything  at a very granular level.
+
+- We found evidence that suggests that our hypothesis might be true, places that have higher levels of crime showed evidence of having a higher number of pickups, especially when taking rain into account.
+
 
 ## Acknowledgements
 
