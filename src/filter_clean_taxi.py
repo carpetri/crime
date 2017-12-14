@@ -61,8 +61,8 @@ station_map = sqlContext.read.format("com.databricks.spark.csv").\
 	option('header','true').\
 	load('rbda/crime/data/map_zones_to_weather_stations.csv')
 
-for y in xrange(2009,2016):
-	for m in xrange(1,13):
+for y in range(2009,2016):
+	for m in range(1,13):
 		file_name = '/user/%s/rbda/crime/data/taxi_data_clean/yellow/year=%d/month=%02d' %(user,y,m) 
 		
 		df = sqlContext.read.parquet(file_name)
@@ -117,8 +117,8 @@ for y in xrange(2009,2016):
 		df.write.mode('ignore').save(output_folder)
 		
 
-for y in xrange(2016,2018):
-	for m in xrange(1,13):
+for y in range(2016,2018):
+	for m in range(1,13):
 		file_name = '/user/%s/rbda/crime/data/taxi_data_clean/yellow/year=%d/month=%02d' %(user,y,m) 
 		
 		df = sqlContext.read.parquet(file_name)
