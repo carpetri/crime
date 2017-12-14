@@ -11,7 +11,7 @@ from pyspark.sql.functions import udf
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
-rcParams['figure.figsize'] = 6, 4
+#rcParams['figure.figsize'] = 6, 4
 from ggplot import *
 
 from pyspark.ml.regression import LinearRegression
@@ -26,7 +26,9 @@ crimes = sqlContext.read.parquet(file_name).filter('station is not null')
 
 crimes.groupby('station').count().show()
 
-crimes_per_zone = crimes.groupby('taxi_zone_id').count().sort('count',ascending=False).withColumnRenamed('count', 'n_crimes')
+crimes_per_zone = crimes.groupby('taxi_zone_id','station','offense_level').count().sort('count',ascending=False).withColumnRenamed('count', 'n_crimes')
+
+crimes_per_zone.withColumn('avg', crimes_per_zone.n_crimes / crimes.count() ).show()
 
 y=2014
 taxi_file_name = '/user/cpa253/rbda/crime/data/taxi_data_clean_weather/yellow/year=%d' %(y)

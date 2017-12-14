@@ -12,6 +12,9 @@ from pyspark.sql.functions import udf
 #user = os. environ['USER']
 #if user not in ['cpa253','vaa238','vm1370']:
 
+#pyspark --num-executors 8 --driver-memory 32g --executor-memory 32g
+
+
 user = 'cpa253'
 
 y = 2014
@@ -20,7 +23,6 @@ m= 1
 file_name = '/user/cpa253/rbda/crime/data/taxi_data_clean_weather/yellow/year=%d' %(y)
 
 df = sqlContext.read.option("mergeSchema", "true").parquet(file_name)
-
 
 
 taxis = sqlContext.read.parquet(taxi_file_name).filter('station is not null')
