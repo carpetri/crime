@@ -64,8 +64,8 @@ Members of the community and tourists, law enforcement
   < Short description of why you believe the results of your analytic are correct and can be trusted 
 
 ### cleaning data
-- we made sure that taxi columns with indeterminable dates were not included and that the columns for all years matched.
-- we made sure taxi, crime and weather data could be related by zone
+- Some of the taxi and crime data records had incorrectly entered/ambigious date/time columns. We tried to identify the correct dates and times for most of them so that we wouldn’t have to throw away those records
+- We had to make sure that the three data sets were related by zone
 
 ### model testing
 we made sure that --
@@ -73,11 +73,11 @@ we made sure that --
 ## Data Sources
 
 
-### Taxi rides data form TLC [(*Link*)](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml)
+### Taxi rides data from TLC [(*Link*)](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml)
 
 - It covers years from 2009 to June 2017.
 
-- Data Size: 230 GB .. 2 TB
+- Data Size: 2 TB
 
 - The yellow taxi trip records include:
 
@@ -131,9 +131,9 @@ The *Integrated Surface Database (ISD)* consists of global hourly ansynoptic obs
 
 ## Obstacles
 
-1. Cleaning the data- The taxi data was the most challenging to clean due to its size and inconsistencies in columns for specific years. Some years were unable to be determined and were excluded for the taxi data set.
+1. Cleaning the data- The taxi data was the most challenging to clean due to its size and inconsistencies in columns for specific years. Meaningful interpretations of dates could not be made for certain records and these records had to be filtered.
 
-2. Joining the data- Designated taxi zones were determined for taxi pickup locations and crime locations in order to join the crime and taxi data sets and an hourly_date column was added to join taxi and weather data sets
+2. Joining the data- Designated taxi zones had to be determined for taxi pickup locations and crime locations in order to join the crime and taxi data sets and an hourly_date column was added to join taxi and weather data sets.
 
 ## Summary
 
@@ -141,10 +141,6 @@ The *Integrated Surface Database (ISD)* consists of global hourly ansynoptic obs
 - We joined together the data sets through taxi zones (taxi_zone_id) and hourly_data
 - Our main questions revolve around whether taxi usage depends on crime rate in a specific zone, how much weather plays a part in the relationship between taxi usage and crime and how the distance of the trip affects taxi usage in relationship to crime
 - WE FOUND THAT ______________
-
-Brief wrap-up!
-
-
 
 ## Acknowledgements
 

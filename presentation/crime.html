@@ -57,18 +57,18 @@
 &lt; Short description of why you believe the results of your analytic are correct and can be trusted</p>
 <h3 id="cleaning-data">cleaning data</h3>
 <ul>
-<li>we made sure that taxi columns with indeterminable dates were not included and that the columns for all years matched.</li>
-<li>we made sure taxi, crime and weather data could be related by zone</li>
+<li>Some of the taxi and crime data records had incorrectly entered/ambigious date/time columns. We tried to identify the correct dates and times for most of them so that we wouldn’t have to throw away those records</li>
+<li>We had to make sure that the three data sets were related by zone</li>
 </ul>
 <h3 id="model-testing">model testing</h3>
 <p>we made sure that –</p>
 </div>
 <div id="data-sources" class="slide section level2">
 <h2>Data Sources</h2>
-<h3 id="taxi-rides-data-form-tlc-link">Taxi rides data form TLC <a href="http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml">(<em>Link</em>)</a></h3>
+<h3 id="taxi-rides-data-from-tlc-link">Taxi rides data from TLC <a href="http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml">(<em>Link</em>)</a></h3>
 <ul>
 <li><p>It covers years from 2009 to June 2017.</p></li>
-<li><p>Data Size: 230 GB .. 2 TB</p></li>
+<li><p>Data Size: 2 TB</p></li>
 <li><p>The yellow taxi trip records include:</p></li>
 <li>pick-up and drop-off dates/times,</li>
 <li>pick-up and drop-off locations,</li>
@@ -117,8 +117,8 @@
 <div id="obstacles" class="slide section level2">
 <h2>Obstacles</h2>
 <ol style="list-style-type: decimal">
-<li><p>Cleaning the data- The taxi data was the most challenging to clean due to its size and inconsistencies in columns for specific years. Some years were unable to be determined and were excluded for the taxi data set.</p></li>
-<li><p>Joining the data- Designated taxi zones were determined for taxi pickup locations and crime locations in order to join the crime and taxi data sets and an hourly_date column was added to join taxi and weather data sets</p></li>
+<li><p>Cleaning the data- The taxi data was the most challenging to clean due to its size and inconsistencies in columns for specific years. Meaningful interpretations of dates could not be made for certain records and these records had to be filtered.</p></li>
+<li><p>Joining the data- Designated taxi zones had to be determined for taxi pickup locations and crime locations in order to join the crime and taxi data sets and an hourly_date column was added to join taxi and weather data sets.</p></li>
 </ol>
 </div>
 <div id="summary" class="slide section level2">
@@ -129,7 +129,6 @@
 <li>Our main questions revolve around whether taxi usage depends on crime rate in a specific zone, how much weather plays a part in the relationship between taxi usage and crime and how the distance of the trip affects taxi usage in relationship to crime</li>
 <li>WE FOUND THAT ______________</li>
 </ul>
-<p>Brief wrap-up!</p>
 </div>
 <div id="acknowledgements" class="slide section level2">
 <h2>Acknowledgements</h2>

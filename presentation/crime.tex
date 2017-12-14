@@ -222,10 +222,12 @@ analytic are correct and can be trusted
 \begin{itemize}
 \tightlist
 \item
-  we made sure that taxi columns with indeterminable dates were not
-  included and that the columns for all years matched.
+  Some of the taxi and crime data records had incorrectly
+  entered/ambigious date/time columns. We tried to identify the correct
+  dates and times for most of them so that we wouldn't have to throw
+  away those records
 \item
-  we made sure taxi, crime and weather data could be related by zone
+  We had to make sure that the three data sets were related by zone
 \end{itemize}
 
 \end{block}
@@ -240,14 +242,14 @@ we made sure that --
 
 \begin{frame}{Data Sources}
 
-\begin{block}{Taxi rides data form TLC
+\begin{block}{Taxi rides data from TLC
 \href{http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml}{(\emph{Link})}}
 
 \begin{itemize}
 \item
   It covers years from 2009 to June 2017.
 \item
-  Data Size: 230 GB .. 2 TB
+  Data Size: 2 TB
 \item
   The yellow taxi trip records include:
 \item
@@ -357,14 +359,14 @@ common ASCII format and common data model.
 \def\labelenumi{\arabic{enumi}.}
 \item
   Cleaning the data- The taxi data was the most challenging to clean due
-  to its size and inconsistencies in columns for specific years. Some
-  years were unable to be determined and were excluded for the taxi data
-  set.
+  to its size and inconsistencies in columns for specific years.
+  Meaningful interpretations of dates could not be made for certain
+  records and these records had to be filtered.
 \item
-  Joining the data- Designated taxi zones were determined for taxi
+  Joining the data- Designated taxi zones had to be determined for taxi
   pickup locations and crime locations in order to join the crime and
   taxi data sets and an hourly\_date column was added to join taxi and
-  weather data sets
+  weather data sets.
 \end{enumerate}
 
 \end{frame}
@@ -387,8 +389,6 @@ common ASCII format and common data model.
 \item
   WE FOUND THAT \_\_\_\_\_\_\_\_\_\_\_\_\_\_
 \end{itemize}
-
-Brief wrap-up!
 
 \end{frame}
 
