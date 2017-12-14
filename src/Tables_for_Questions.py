@@ -90,10 +90,6 @@ Final_Table_6 = Final_Table_6.withColumn('Percentage_Crime_Severity', Final_Tabl
 
 
 
-
-
-
-
 #INCOMPLETE / DOES NOT WORK YET
 
 #Question 3

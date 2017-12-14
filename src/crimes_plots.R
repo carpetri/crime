@@ -243,7 +243,46 @@ ggsave(paste0('../img/scatter_crimes_taxis.pdf'),height = 7, width = 6 )
 
 dat[ 'airport' %in% dat$zone ,]
 
-dat[dat$taxi_zone_id != 138 & dat$taxi_zone_id != 132 &  , ]
+# dat[dat$taxi_zone_id != 138 & dat$taxi_zone_id != 132 &  , ]
 
+
+
+taxi_yz_2 <- read_csv('../data/taxi_data_hourly_weather_crime.csv')
+
+
+
+taxis_yzw <- taxi_yz_2 %>% 
+   dplyr::rename(taxi_zone_id =  pickup_location_id) 
+
+dat <- taxis_yzw %>%
+  left_join(taxi_zones) %>% 
+  left_join(dat_crimes) %>%
+  dplyr::filter(!grepl( 'Airport',(zone %>% as.character() ) )) %>% 
+  dplyr::filter(borough!='EWR') %>% 
+  dplyr::mutate(borogh = as.character(borough)) %>% 
+  dplyr::mutate(rain = rain_hour > 10 ) %>% 
+    group_by(year ,  taxi_zone_id, zone, borough, rain) %>% 
+    dplyr::summarise(n_pick = sum(n_pickups_hour), n_crimes=sum(n_crimes)) %>% 
+    dplyr::ungroup() 
+
+dat_crimes
+
+
+#Is the average number of taxi pickups different in areas that 
+# have different levels of crime rates when we compare at times 
+# with and without rain (or different weather variables)?
+
+dat
+dat %>% dplyr::filter(!is.na(rain)) %>% 
+  ggplot(aes(x=n_pick, y = n_crimes, group = rain , colour = rain))+ 
+  geom_point()+ 
+  scale_x_log10()+
+  theme_bw() + 
+  facet_grid(rain~borough,scales = 'free',ncol = 2)+
+  geom_smooth(color='red',method = "lm", formula = y ~ splines::bs(x, 1)) +
+  # geom_smooth(color='red',method = "lm", formula = y ~ splines::bs(x, 1)) +
+  labs(x='Log(number of pickups)', y = 'Total crimes', caption='*Excluding airports trips')
+
+ggsave(paste0('../img/scatter_crimes_taxis.pdf'),height = 7, width = 6 )
 
 
