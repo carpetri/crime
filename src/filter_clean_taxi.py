@@ -112,7 +112,7 @@ for y in xrange(2009,2016):
 
 		output_folder = '/user/%s/rbda/crime/data/taxi_data_clean_weather/yellow/year=%d/month=%02d' %(user,y,m)
 		
-		print 'Saving to hdfs://%s' % output_folder
+		print('Saving to hdfs://%s' % output_folder)
 		
 		df.write.mode('ignore').save(output_folder)
 		
@@ -155,7 +155,7 @@ for y in xrange(2016,2018):
 
 		output_folder = '/user/%s/rbda/crime/data/taxi_data_clean_weather/yellow/year=%d/month=%02d' %(user,y,m)
 		
-		print 'Saving to hdfs://%s' % output_folder
+		print('Saving to hdfs://%s' % output_folder)
 		
 		df.write.mode('ignore').save(output_folder)
 		
