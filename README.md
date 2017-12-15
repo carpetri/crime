@@ -7,7 +7,7 @@ Authors:
 * Varsha Muralidharan (vm1370@nyu.edu)
 
 <!-- CODE COVERAGE HERE -->
-
+![presentation](/presentation/crime.html)
 ## Project Description
 
 Understanding and predicting crime is a crucial task in any mayor city. The objective is to understand crime rates at a granular level with the idea that people behave according on how secure they feel and this fact impact the way they travel. It might be that people prefer to take a taxi versus other options depending on their own perception of crime in their current location. This work will analyze taxi and crime data on a case level.
