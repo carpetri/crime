@@ -40,10 +40,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
-Understanding and predicting crime is a crucial task in any major city. The objective of this study is to understand crime rates and its effects on how the use of taxis in New York City at a granular level. The idea  is that people react according to how secure they feel, which extends to their travel preferences. 
-Our hypothesis is that people are less likely to walk in areas subjectively deemed more dangerous, and will instead opt to use more reliable and immediate transportation such as designated taxis. 
+Understanding and predicting crime is a crucial task in any major city. The objective of this study is to understand the relation between crime rates and taxi usage in New York City at a granular level. We also want to see how peoples travel behavior is affected by certain weather conditions, such as rain. The idea is that people react according to how secure they feel, which extends to their travel preferences, and that more taxi usage can be expected in rainy weather conditions. 
+Our hypothesis is that people are less likely to walk in areas subjectively deemed more dangerous, and will instead opt to use more reliable and immediate transportation such as designated taxis. We also aim to study our hypothesis under the influence of certain weather conditions such as rain. 
 New York City will be used in this study as it provides a large amount of public data on crimes throughout the five boroughs along with an extensive amount of data from NYC yellow cab usage. 
-We found evidence that supports that our hypothesis holds.
+We found evidence that supports our hypothesis.
 
 \end{abstract}
 
@@ -56,19 +56,15 @@ We found evidence that supports that our hypothesis holds.
 \section{Motivation}
 
 Understanding and predicting crime is a crucial task in any major city. 
-The ability to understand criminal activity in a very delimited area adds depth to the current understanding of crime and  it provides a baseline to understand its effect on people's behavior. 
-This question is relevant because it has a direct impact on the families economies since taking a taxi is the most expensive public transportation option and might also have an impact on people's health because there might be avoiding to walk to avoid crime which directly reduces peoples physical activity and might impact their health in the long run. 
-This fact could translate into a much bigger public health issue for the city in the long run. %%% A LOT OF CITES NEEDED HERE.
+The ability to analyze criminal activity and its effect on people's behavior in a very delimited area adds depth to the current understanding of crime.
 
-%%Motivation in presentation slide
-This analytic can help law enforcement predict areas of crime based on New Yorkers transportation habits. Those who live in an area are aware of the safety of their surroundings and this awareness can be represented by how comfortable residents may be in walking or taking the subway versus taking more immediate, more expensive, modes of transportation such as taxis. It is hypothesized that if someone feels unsafe in an area, they would be more likely to take a more direct and presumably safer mode of transportation such as a taxi. 
+This analytic can help law enforcement predict areas of crime based on New Yorkers transportation habits. Those who live in an area are aware of the safety of their surroundings. This awareness can be observed by how comfortable residents feel walking as opposed to taking more immediate and expensive modes of transportation, such as taxis. It is hypothesized that if someone feels unsafe in an area, they would be more likely to take a more direct and presumably safer mode of transportation such as a taxi. 
 
 By analyzing the patterns of taxi usage in New York City, along with current crime data, law enforcement officials may be able to predict which areas will have a higher rate of crime in the future. This information can also be used as open source data, which would benefit the community and tourists by revealing taxi usage in regards to crime, and perhaps comforting people in using less expensive means of transportation and allowing them to save money in an expensive city.  
-%%%
 
-Specifically, we picked New York City because it has the largest  total number of offenses known to law enforcement by city crime according to the FBI's Uniform Crime Reporting \cite{fbiUniformCrime}, with a total of around 223 thousand for 2016 over cities like Los Angeles, Houston and Chicago, which have 156, 148 and
-147 thousand offenses respectively. 
-This provides the most vast crime dataset for this analysis.
+Specifically, we picked New York City because it has the largest total number of offenses known to law enforcement by city crime according to the FBI's Uniform Crime Reporting \cite{fbiUniformCrime}, with a total of around 223,000 for 2016 over cities like Los Angeles, Houston and Chicago, which have 156,000, 148,000 and
+147,000 offenses respectively. 
+This provides the largest crime dataset for this analysis.
 
 Also, New York City has an Open Data Law which mandates that all public crime data be available online \cite{OpenDat}, which makes crime data collection easily accessible to the public. Figure \ref{total_crimes} shows the growth on reported crimes in the New York Police Department (NYPD) data \cite{NYPDHis}.
 
@@ -79,23 +75,13 @@ Also, New York City has an Open Data Law which mandates that all public crime da
 \end{figure}
 
 
-
-% Our primary reason is thatThere are an abundance of transportation services available in New York City and taxi data is common enough to garner a big data set. 
-%THIS IS NOT THEEEE PRIAMARY REASON ITS JUST CONVENIENT FOR US. THE PRIMARY REASON SHOULD BE THAT WE CONSIDER NYC INTERESTING FOR ITS BLAAA..., IT COULD BE ANYTHING BUT THERE ARE ABUNDANCE OF TRANSPORTANTION SERVICES IN MANY PLACES AND WE STILL PICKED NYC BECAUSE X.
-
-
-% IN NOT SURE THIS IS ACUTALLY TRUE IF IT IS WE SHOULD CITE SOMETHING: 
-       % It is also easy for individuals to choose a reliable taxi company, the NYC yellow taxi, which is a widely used and reputable taxi company. 
-% With the abundance of transportation options, our study can explore transportation patterns such as taxi usage versus subway usage based on subway locations and taxi pickup/drop off coordinates. %ITS NOT VS SUBWAY USAGE BECASE WE CANNOT BE SURE OF THAT. IT SHOULD BE SOMETHING LIKE TAXI USAGE GIVEN THE PROXIMITY TO A SUBWAY STATION AT A GIVEN LOCATION.
-
 \section{Introduction}
 
-It is hard to argue that violence and crime is not a relevant factor that people take into consideration when commuting among the boroughs of New York city. 
-So, this work assumes that that people want to minimize the time spent in locations they consider unsafe which  plays a roll in their transportation preferences affecting their taxi usage. 
+It is easy to see that crime is a relevant factor that people take into consideration when commuting among the boroughs of New York City. 
+What goes into an individuals subjective view of what is safe versus unsafe can be hard to gauge. However, a lot can be inferred from an individuals behavior patterns.
+One such pattern of behavior is transportation habits. It is inferred that people want to minimize the time spent in locations they consider unsafe, which affects taxi usage. Our idea is to correlate taxi pickup and drop off information to the perceived level of criminal activity in an area. 
 
-What goes into an individuals subjective view of what is safe versus unsafe can be hard to gage. However, a lot can be inferred from an individuals behavior patterns.
-One such pattern of behavior is transportation habits. The idea is to correlate taxi pickup and drop off information to the perceived level of crime activity in an area. 
-It is inferred that people choose to not use public modes of transportation in areas where an individual feels unsafe or uncomfortable and will instead opt to use a more direct and safer source such as a designated taxi. 
+%It is inferred that people choose to not use public modes of transportation in areas where an individual feels unsafe or uncomfortable and will instead opt to use a more direct and safer source such as a designated taxi. 
 
 % Through open source data of taxi trips, we hope to correlate peoples transportation behavior with the rate of crime activity in a given area. 
 
@@ -103,18 +89,22 @@ It is inferred that people choose to not use public modes of transportation in a
 % Relating crime to transportation is important because it uses the knowledge of those who live in an area to predict which areas may be more prevalent to crime. %I DONT LIKE THIS SENTENCE HAHA. 
 % This is an intuitive source of information that utilizes people and their knowledge of the city in crime prediction. %SAME HERE THIS IS A COMPLEX THING TO SAY WE SHOULD KEEP IT SIMPLE 
 
-This study can give a look into what areas people avoid, allowing to geographically match the locations of crime activity to geographical pickup/drop off locations of taxi trips provided in the open source taxi data and can also provide information into the development of areas that become more or less crime ridden. 
+By matching the locations of criminal activity to geographical pickup/drop off locations of taxi trips provided in the open source taxi data, we can identify the areas in which people avoid walking in. Our analysis can also provide information into the development of areas that become more or less crime ridden. 
 
-To perform all the analysis, three main datasets were chosen.
-The Taxi \& Limousine Commission (TLC) provide open data for all the rides in New York City since 2009 up to the present \cite{Taxi}. 
-The crime data collected for this study contains historic \cite{NYPDHis} and current \cite{NYPDCur} records from NYPD complaint data, which has crimes reported since 2006 until present.
-Data collected from the National Oceanic and Atmospheric Administration (NOAA) \cite{NOAA} is used as a third data source in order to provide a more controlled analysis. Specifically, hourly weather data  captured from three stations, Central Park, JFK airport, and La Guardia airport stations, is used as a possible explanation for taxi/crime patterns that do not correlate, seeing as weather is often a factor in the decision to take certain forms of transportation.
+\begin{figure}
+\caption{Data flow diagram}
+\label{figx}
+\centering \includegraphics[width=.45\textwidth]{images/DesignFlowDiagram.pdf}
+\end{figure}
 
-%NOT ACCURATE NOT HERE: For this study, we will compare the distance of taxi pickup locations to reported locations of crime activity. This is so that we can unite these two data sources based on geographic locations within the city. 
+To perform all the analyses, three main datasets are chosen.
+The Taxi \& Limousine Commission (TLC) provide open source data for all the rides in New York City from 2009 up to the present \cite{Taxi}. 
+The crime data collected for this study contains historic \cite{NYPDHis} and current \cite{NYPDCur} records from NYPD complaint data, which have crime reports from 2006 until present.
+Data collected from the National Oceanic and Atmospheric Administration (NOAA) \cite{NOAA} is used as a third data source in order to provide a more controlled analysis. Hourly weather data captured from three stations, Central Park, JFK airport, and La Guardia airport, are used to explain taxi/crime patterns that do not correlate, seeing as weather is often a factor in the decision to take certain modes of transportation.
 
 These three data sets were downloaded into a Hadoop cluster\footnote{NYU's High Perfomance Computing Hadoop cluster, Dumbo}, as shown in Figure \ref{figx}. Both crime and taxi data contain latitude and longitude data, which provide a very granular way of relating the datasets. 
 This was achieved by a spatial join formulated as a Map/Reduce problem in order to exploit the benefits of the cluster. 
-The problem was, how to join the  longitude and latitude coordinates for crime activity with the coordinates for taxi usage to a specific area  in New York City   in order to have a commonly defined location between the two sources.
+The problem was to join the longitude and latitude coordinates for crime activity with the coordinates for taxi usage to a specific area in New York City in order to have a commonly defined location between the two sources.
 Also, hourly weather data collected at three points, Central Park, LaGuardia and JFK, was assigned to each taxi ride by picking the data collected from the nearest station to the pickup location at a given time. 
 
 
@@ -155,13 +145,6 @@ Features extracted from people who are 'at home' are found to be of high importa
 \section{Design}
 
 Figure \ref{figx} shows our data flow diagram\footnote{DUMBO refers to NYU's High Performance Computing Hadoop cluster}.  It shows that all three data sources were downloaded into a Hadoop cluster and cleaned in spark and later stored as Spark's SQL tables which can be read as Hive or Impala tables.
-
-\begin{figure}
-\caption{Data flow diagram}
-\label{figx}
-\centering \includegraphics[width=.45\textwidth]{images/DesignFlowDiagram.pdf}
-\end{figure}
-
 
 \subsection{Getting and cleaning the data}
 
