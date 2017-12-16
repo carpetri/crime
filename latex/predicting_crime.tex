@@ -132,14 +132,15 @@ The datasets used are Criminal Cases Dataset (includes geo-location of all repor
 Features extracted from people who are 'at home' are found to be of high importance. This information can be used by the police departments to determine where to implement higher security.
 
 \section{Design}
-
-Figure \ref{figx} shows our design flow diagram\footnote{DUMBO refers to NYU's High Performance Computing Hadoop cluster}. All three data sources were downloaded into a Hadoop cluster, cleaned in Spark and later stored as Spark's SQL tables. 
-
 \subsection{Getting and cleaning the data}
+Figure \ref{figx} shows our design flow diagram\footnote{DUMBO refers to NYU's High Performance Computing Hadoop cluster}. All three data sources were downloaded into a Hadoop cluster, cleaned in Spark and later stored as Spark's SQL tables. 
+The first step in the \ref{figx} was getting the data. It was fairly easy because all three sets have APIs which provide reliable and easy access. 
+We wrote a script to facilitate this process. It downloads everything from the different sources and uploads everything into our Hadoop cluster. 
 
-Getting the data was fairly easy because all three sets have APIs which provide reliable and easy access.
+The next phase was cleaning everything. We used spark for this task and stored everything into partition tables divided with the following format: \texttt{year=YYYY/month=MM}. Tables are  sparkSQL with schema for easy access in Hive and Impala.
 
 \subsubsection{Weather data} 
+
 The weather dataset was the cleanest out of the three sets and contained an hour-by-hour collection of weather conditions at three station locations in New York City: Central Park, JFK airport and LaGuardia airport. 
 
 \subsubsection{Crimes data}
@@ -197,8 +198,8 @@ In order to achieve this we had to perform a spatial join. On one side we have a
 
 \subsection{Analytic}
 
-Crime occurrences are divided into two levels: \textit{high crime} and  \textit{low crime} with respect to the total number of observed crimes in a given period of time.
-Crime level can be defined at every instance of time $t$ and location $l$ as a binary variable for \textit{high crime} and \textit{low crime}, when the total number of crimes at $l$ is respectively higher and lower than the average for that time and location. With this implementation studied the correlation between taxi pickups and crimes in each zone and the influence of rain on the same.
+% Crime occurrences are divided into two levels: \textit{high crime} and  \textit{low crime} with respect to the total number of observed crimes in a given period of time.
+% Crime level can be defined at every instance of time $t$ and location $l$ as a binary variable for \textit{high crime} and \textit{low crime}, when the total number of crimes at $l$ is respectively higher and lower than the average for that time and location. With this implementation studied the correlation between taxi pickups and crimes in each zone and the influence of rain on the same.
 
 %A taxi ride will be categorized as a \textit{short ride} if the distance from the pickup location to drop off location is considered as walkable in less than a given time (i.e. 10 minutes) for an average person. And \textit{long ride} any other case.
 
