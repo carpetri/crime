@@ -162,7 +162,7 @@ After cleaning the categorical variables, several numerical inconsistencies stil
 
 Another problem was that the data did not include longitude and latitude for the years 2016 and 2017. Instead they had zone id referring to the taxi zone id for the pickup and dropoff. This became one of the greater obstacles, because we needed to assign a zone id to all the previous years. 
 
-In order to achieve this we had to perform a spatial join. On one side we have a shapefile for the taxi zones as seen in Figure 3[a]. It is a simple task to perform a spatial join when working in a small dataset, but in order to do a spatial join for about 1.2 billion records, we needed to make some modifications. We transformed the shapefile 3[b] into a raster file Figure 3[b] and the raster into a csv with longitude, latitude, and zone id as a fine grid that covers the area as seen in Figure 3[c]. This was a good solution because we were able to compute everything in our HDFS cluster with a map/reduce approach.
+In order to achieve this we had to perform a spatial join. On one side we have a shapefile for the taxi zones as seen in Figure 3(a). It is a simple task to perform a spatial join when working in a small dataset, but in order to do a spatial join for about 1.2 billion records, we needed to make some modifications. We transformed the shapefile 3(a) into a raster file Figure 3(b) and the raster into a csv with longitude, latitude, and zone id as a fine grid that covers the area as seen in Figure 3(c). This was a good solution because we were able to compute everything in our HDFS cluster with a map/reduce approach.
 
 
 \begin{figure}
@@ -194,35 +194,31 @@ In order to achieve this we had to perform a spatial join. On one side we have a
 
 \subsection{Analytic}
 
-Crime occurrences will be divided into  two levels: \textit{high crime} and  \textit{low crime} with respect to the total number of observed number crimes in a given period of time which will be defined later.
-So crime level can be defined at every time $t$ an location $l$ as a binary variable for \textit{high crime} and \textit{low crime} when the total number of crime at is respectively higher and lower  than the average for that time and location.
+Crime occurrences are divided into two levels: \textit{high crime} and  \textit{low crime} with respect to the total number of observed crimes in a given period of time.
+Crime level can be defined at every instance of time $t$ and location $l$ as a binary variable for \textit{high crime} and \textit{low crime}, when the total number of crimes at $l$ is respectively higher and lower than the average for that time and location. With this implementation studied the correlation between taxi pickups and crimes in each zone and the influence of rain on the same.
 
-To simplify things, any location is considered to have a  distance to a subway entrance equal to 0 if the location has any number available subway entrances,  1 if any of its neighbors location has a distance of 0 and 2 in every other case. \textbf{NOTE:} This assumption will be revised later to mark differences when a location has a lot vs just one entrance because it is important while making a very granular analysis.
+%A taxi ride will be categorized as a \textit{short ride} if the distance from the pickup location to drop off location is considered as walkable in less than a given time (i.e. 10 minutes) for an average person. And \textit{long ride} any other case.
 
 
-Any taxi ride will be categorized as a \textit{short ride} if the distance form the pickup location to drop off location is considered as: could be walked in in less than a given time (i.e. 10 minutes) for an average person. And \textit{long ride} any other case.
 
-With this implementation we  can to answer this type of questions:
-\begin{enumerate}
-       \item Is the average number of taxi pickups different in areas that have different levels of crime rates?
 
-       \item Is the average number of taxi pickups different in areas that have different levels of crime rates grouping by the proximity of an area to a \textbf{subway}? 
+%we tried to study the following:
+%\begin{enumerate}
 
-       \item Is the average number of taxi pickups different in areas that have different levels of crime rates when we compare at times with and without \textbf{rain} (or different weather variables)?
+ %      \item The correlation between crime rate and taxi pickups in each zone
+  %     \item The influence of rain on the above
+   %    \item 
 
-       \item Does the average  number of \textbf{short} rides hve a different average number of taxi pickups  in areas that have different levels of crime rates  compared to the average of \textbf{long} rides?
+%%%FIX THIS
+  %     \item Is the average number of taxi pickups different in areas that have different levels of crime rates?
 
-       \item Does the answer of the previous questions change for special dates such as \textbf{holidays}?
+   %    \item Is the average number of taxi pickups different in areas that have different levels of crime rates when we compare at times with and without \textbf{rain} (or different weather variables)?
 
-       \item When categorized by the \textbf{severity of crime}, is the average number of taxi pickups different in areas that have different levels of crime rates for a given level of severity in crimes?
+    %   \item Does the average  number of \textbf{short} rides hve a different average number of taxi pickups  in areas that have different levels of crime rates  compared to the average of \textbf{long} rides?
 
-       \item \textbf{Run away vs feel attracted} to crime. When there are ``high profiled'' crime incidents in a given location does the average number of drop offs is greater, lower or similar to the average?\footnote{\textbf{NOTE:} This is a similar question to \cite{Bendler14}.}
+     %  \item Does the answer of the previous questions change for special dates such as \textbf{holidays}?
 
-       \item Given crime rates changes across time for a given area, is the average number of taxi pickups  changing too? If so, same direction? With a time lag?
-       does it lasts long? Does severity has an impact?
-
-       \item How does the error in the prediction of crime rates changes when modeling it with traditional demographics vs the taxi rides vs both as features?\footnote{
-       \textbf{NOTE:} This is the main question of the paper from KDD 2016 \cite{Wang16}. }
+      % \item When categorized by the \textbf{severity of crime}, is the average number of taxi pickups different in areas that have different levels of crime rates for a given level of severity in crimes?
 
 \end{enumerate}
 
@@ -322,7 +318,7 @@ With this implementation we  can to answer this type of questions:
 \begin{figure}
     \centering
     \includegraphics[width=.5\textwidth]{../img/scatter_crimes_taxis.pdf}
-    \caption{Crime and Pickups in Staten Island, 2015}
+    \caption{Crimes and Pickups in NYC boroughs without rain conditions}
     \label{Staten Island}
   \end{figure}
 
@@ -330,24 +326,48 @@ With this implementation we  can to answer this type of questions:
 \begin{figure*}
     \centering
     \includegraphics[width=1\textwidth]{../img/scatter_crimes_taxis_rain.pdf}
-    \caption{Crime and Pickups in Staten Island, 2015}
+    \caption{Crimes and Pickups in NYC boroughs with rain conditions}
     \label{Staten Island}
 \end{figure*}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%EXPERIMENTAL RESULTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Experimental Results}
+Our analysis shows that there is a considerable degree of correlation between crime rates and taxi pickups in different zones in the five boroughs of New York City. These can be observed in Figures 4, 5, 6, 7 and 8. In the figures, a high crime level is indicated by a red color and a high taxi pickup rate is indicated by a green color. It can be seen that a high number of red/orange zones on the crime map match to green zones on the pickups map. This suggests that people tend to use cabs more in areas that have higher crime rates. In Figure 4, it is seen that crime is highly prevalent in Midtown Manhattan as well as the northern zones of Manhattan. High pickup is seen in and around midtown. The relatively low value of pickups in the northern zones can be explained by the scarcity of taxis in low movement areas. The other boroughs, as shown in Figures 5, 6, 7 and 8, have a generally positive correlation between taxi pickups and crimes categorized by zone. 
 
-\section{Limitations}
+
+Figure 9 shows a scatterplot along with a 
+
+
+ were  plotted for each of the boroughs on days that encountered more than 10 inches of rain and days that did not 
+
+Rain conditions were plotted along with crime rates and number of pickups in Figure 10 to determine if there was a correlation
+
+Crime rates and pickups were also analyzed in two categories, days that saw more than 10 inches of rain and days that saw less than or equal to 10 inches of rain. Each point on the graph represents an hour of taxi pickup in correspondence to 
+
+
+
+
+
+
+
+In all the plots, most of the points fall close to  
+
+\section{Limitations and Future Work}
 Our proposed method to quantitatively study crime rates in the city of New York intends to test the appropriateness of employing New York City TLC data and NOAA weather data as a suitable indicator for criminal activity in different New York City neighborhoods. Although the results of our study produce a considerable degree of validity, our work suffers from a few limitations. 
 In the age of app-based transportation technology, companies such as Uber and Lyft are challenging the age-old taxi industry. 
 A significant portion of the city's population makes use of these options over New York City taxis because of numerous reasons. 
-For one, Uber's new strategy of making their services more available in the outer boroughs of New York City where taxis are scarce and access to public transport is not easy. Nevertheless, the TLC industry is still strong and serves roughly 50\% of city-wide taxi users.
+For one, Uber makes their services more available in the outer boroughs of New York City where taxis are scarce and access to public transport is not easy. Nevertheless, the TLC industry is still strong and serves roughly 50\% of city-wide taxi users.
+
+For future work, it would be very beneficial to use Uber and Lyft data sets along with our taxi data set to produce enhanced results. We would also like to bring in a subway station location dataset. It would be interesting to note peoples preference of using a subway versus a taxi in high crime areas. Another question of interest is how high profile crime locations affect people, by using a media dataset. High profile crimes are crimes that reach news sources, therefore reaching a much wider audience than crimes that aren't publicized. This can affect peoples perceptions of dangerous areas, so perhaps there would be a higher observed correlation between crime rates and taxi pickups. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%CITATION NEADED HEEERE for percentage of taxi usage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% CONCLUSIONS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
 
 % \section{Conclusions}
 % This paragraph will end the body of this sample document.
@@ -361,6 +381,9 @@ For one, Uber's new strategy of making their services more available in the oute
 % examples only.
 %\end{document}  % This is where a 'short' article might terminate
 
+
+We collected NYC taxi trip data, NYC crime data and weather data from Central Park, JFK and LaGuardia and we were able to join everything at a very granular level.
+We found evidence that suggests that our hypothesis might be true. Places that have higher levels of crime showed evidence of having a higher number of pickups, especially when taking rain into account.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
