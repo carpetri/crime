@@ -133,17 +133,17 @@ Features extracted from people who are 'at home' are found to be of high importa
 
 \section{Design}
 
-Figure \ref{figx} shows our design flow diagram\footnote{DUMBO refers to NYU's High Performance Computing Hadoop cluster}. All three data sources were downloaded into a Hadoop cluster, cleaned in Spark and later stored as Spark's SQL tables. 
+Figure \ref{figx} shows our design flow diagram\footnote{DUMBO refers to NYU's High Performance Computing Hadoop cluster}. All three data sources were downloaded into NYU's Hadoop cluster and cleaned using MapReduce. We then analyzed the data using Spark with the data stored as Spark's SQL tables. 
 
 \subsection{Getting and cleaning the data}
 
 Getting the data was fairly easy because all three sets have APIs which provide reliable and easy access.
 
 \subsubsection{Weather data} 
-The weather dataset was the cleanest out of the three sets and contained an hour-by-hour collection of weather conditions at three station locations in New York City: Central Park, JFK airport and LaGuardia airport. 
+The weather dataset was the cleanest out of the three sets and contained an hour-by-hour collection of weather conditions at three station locations in New York City: Central Park, JFK airport and LaGuardia airport. This data set was 165 MB in size. 
 
 \subsubsection{Crimes data}
-There were a few anomalies that were found in the NYPD crime datasets. The two datasets (historic and current crime) at hand were for crimes that were reported from 2006 until present. However, certain records had incorrect or bad entries in the Crime Start and End Date-Time columns. For instance, there were several crimes reported to have occurred in the year 1016, which were assumed as a typological error for the year 2016. These records were fixed and used in the analytic. A few other records with year entries such as 1026 were dropped, as appropriate inferences could not be drawn. Certain records\footnote{Which make us wonder how much we should trust this dataset, but, it is what we have.} had timestamps of \texttt{24:00:00}, and were corrected to \texttt{00:00:00}.
+Both historic and current data sets were 1.5 GB in size. There were a few anomalies that were found in the NYPD crime datasets. The two datasets (historic and current crime) at hand were for crimes that were reported from 2006 until present. However, certain records had incorrect or bad entries in the Crime Start and End Date-Time columns. For instance, there were several crimes reported to have occurred in the year 1016, which were assumed as a typological error for the year 2016. These records were fixed and used in the analytic. A few other records with year entries such as 1026 were dropped, as appropriate inferences could not be drawn. Certain records\footnote{Which make us wonder how much we should trust this dataset, but, it is what we have.} had timestamps of \texttt{24:00:00}, and were corrected to \texttt{00:00:00}. 
 
 \subsubsection{TLC data}
 
