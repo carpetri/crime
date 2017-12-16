@@ -199,7 +199,16 @@ In order to achieve this we had to perform a spatial join. On one side we have a
 \end{figure}
 
 
-\subsection{Analytic}
+\section{Analytic}
+
+\subsection{Joining data}
+
+One of our main concerns was the consistency of the data through time and among the different sources, so we made a lot of effort to keep all variables, even the ones we ended up not using.
+
+In the cleaning process we assigned taxi zones for taxi pickup and drop-off locations. As described in the previous section. The next logical step was to join with the weather data. Our approach was to assign a weather station to each of the taxi pickup longitude and latitude that corresponds to the closest station in distance and time to maintain accuracy.
+We repeated the  process for assigning taxi zones but this time we assigned a station (JFK, La Guardia, Central Park) by computing the min distance from the pickup locations (long/lat) to the weather station and picking the record of the previous hour to the pickup time.
+
+We had an extra problem assigning weather station to the most recent data in taxis. The taxi records for 2016 and 2017 do not include longitude and latitude just taxi zones. So we estimated the centroids for every taxi zones  on the pick-up zones and then computed the min distance to the weather stations and assigned that data. Finally taxis were joined to crime by using time periods of one hour. 
 
 % Crime occurrences are divided into two levels: \textit{high crime} and  \textit{low crime} with respect to the total number of observed crimes in a given period of time.
 % Crime level can be defined at every instance of time $t$ and location $l$ as a binary variable for \textit{high crime} and \textit{low crime}, when the total number of crimes at $l$ is respectively higher and lower than the average for that time and location. With this implementation studied the correlation between taxi pickups and crimes in each zone and the influence of rain on the same.
@@ -209,25 +218,6 @@ In order to achieve this we had to perform a spatial join. On one side we have a
 
 
 
-%we tried to study the following:
-%\begin{enumerate}
-
- %      \item The correlation between crime rate and taxi pickups in each zone
-  %     \item The influence of rain on the above
-   %    \item 
-
-%%%FIX THIS
-  %     \item Is the average number of taxi pickups different in areas that have different levels of crime rates?
-
-   %    \item Is the average number of taxi pickups different in areas that have different levels of crime rates when we compare at times with and without \textbf{rain} (or different weather variables)?
-
-    %   \item Does the average  number of \textbf{short} rides hve a different average number of taxi pickups  in areas that have different levels of crime rates  compared to the average of \textbf{long} rides?
-
-     %  \item Does the answer of the previous questions change for special dates such as \textbf{holidays}?
-
-      % \item When categorized by the \textbf{severity of crime}, is the average number of taxi pickups different in areas that have different levels of crime rates for a given level of severity in crimes?
-
-%\end{enumerate}
 
 \begin{figure*}
     \centering
@@ -326,7 +316,7 @@ In order to achieve this we had to perform a spatial join. On one side we have a
     \centering
     \includegraphics[width=.5\textwidth]{../img/scatter_crimes_taxis.pdf}
     \caption{Crimes and Pickups in NYC boroughs without rain conditions}
-    \label{Staten Island}
+    \label{crimes_taxis}
   \end{figure}
 
 
@@ -334,32 +324,55 @@ In order to achieve this we had to perform a spatial join. On one side we have a
     \centering
     \includegraphics[width=1\textwidth]{../img/scatter_crimes_taxis_rain.pdf}
     \caption{Crimes and Pickups in NYC boroughs with rain conditions}
-    \label{Staten Island}
+    \label{crimes_taxis_rain}
 \end{figure*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %EXPERIMENTAL RESULTS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Experimental Results}
-Our analysis shows that there is a considerable degree of correlation between crime rates and taxi pickups in different zones in the five boroughs of New York City. These can be observed in Figures 4, 5, 6, 7 and 8. In the figures, a high crime level is indicated by a red color and a high taxi pickup rate is indicated by a green color. It can be seen that a high number of red/orange zones on the crime map match to green zones on the pickups map. This suggests that people tend to use cabs more in areas that have higher crime rates. In Figure 4, it is seen that crime is highly prevalent in Midtown Manhattan as well as the northern zones of Manhattan. High pickup is seen in and around midtown. The relatively low value of pickups in the northern zones can be explained by the scarcity of taxis in low movement areas. The other boroughs, as shown in Figures 5, 6, 7 and 8, have a generally positive correlation between taxi pickups and crimes categorized by zone. 
+
+We consider the clean and joined dataset that covers all the years and relates the crime, hourly weather and taxi data as a first result by itself.
+
+We are not trying to explain causality so our observations should be interpreted as empirical correlations and raw insight obtained from a very  long cleaning data phase.
 
 
-Figure 9 shows a scatterplot along with a 
+%we tried to study the following:
+%\begin{enumerate}
+
+ %      \item The correlation between crime rate and taxi pickups in each zone
+  %     \item The influence of rain on the above
+   %    \item 
+
+%%%FIX THIS
+  %     \item Is the average number of taxi pickups different in areas that have different levels of crime rates?
+
+   %    \item Is the average number of taxi pickups different in areas that have different levels of crime rates when we compare at times with and without \textbf{rain} (or different weather variables)?
+
+    %   \item Does the average  number of \textbf{short} rides hve a different average number of taxi pickups  in areas that have different levels of crime rates  compared to the average of \textbf{long} rides?
+
+     %  \item Does the answer of the previous questions change for special dates such as \textbf{holidays}?
+
+      % \item When categorized by the \textbf{severity of crime}, is the average number of taxi pickups different in areas that have different levels of crime rates for a given level of severity in crimes?
+
+%\end{enumerate}
+
+Our analysis shows that there is a considerable degree of correlation between crime rates and taxi pickups in different zones in the five boroughs of New York City. 
+These can be observed in Figures \ref{Manhattan}, \ref{Queens}, 6, 7 and 8. In the figures, a high crime level is indicated by a red color and a high taxi pickup rate is indicated by a green color. 
+It can be seen that a high number of red/orange zones on the crime map match to green zones on the pickups map. 
+This suggests that people tend to use cabs more in areas that have higher crime rates. 
+
+In Figure \ref{Manhattan}, it is seen that crime is highly prevalent in Midtown Manhattan as well as the northern zones of Manhattan. High pickup is seen in and around midtown. The relatively low value of pickups in the northern zones can be explained by the scarcity of taxis in low movement areas. 
+The other boroughs, as shown in Figures 5, 6, 7 and 8, have a generally positive correlation between taxi pickups and crimes categorized by zone. 
 
 
- were  plotted for each of the boroughs on days that encountered more than 10 inches of rain and days that did not 
-
-Rain conditions were plotted along with crime rates and number of pickups in Figure 10 to determine if there was a correlation
-
-Crime rates and pickups were also analyzed in two categories, days that saw more than 10 inches of rain and days that saw less than or equal to 10 inches of rain. Each point on the graph represents an hour of taxi pickup in correspondence to 
+Then Figure \ref{crimes_taxis} shows a scatterplot of the total number of crimes against the number of pickups per zone id. It can be seen that there is a positive relation in general except for Brooklyn where it's not clear with that information. If you take a look into Manhattan you can see that there is a small decline in the relation for the places that have higher number of pickups. This was a red flag for us. So, Figure \ref{crimes_taxis_rain} shows each of the boroughs on days that encountered more than 10 inches of rain and days that did not.
+Each point on the graph represents  the total number of pickups in an hour  in correspondence to the total number of crimes in the previous year. The first thing to notice is that general there are more pickups when there is rain present. The next thing to notice is that the relationship is more clear when we separate by rain. Another thing to notice is that the same observation in Manhattan is present. There are many observations that have low levels of crime that have a lot of pickups. That was actually a good thing because when you go back to Figure \ref{Manhattan} you can spot that this cases correspond mainly to zones that are more likely to be high income. 
 
 
+In general we can see that there is a strong relationship between taxi usage and crime, specially if you take into account other variables such as weather.
 
-
-
-
-
-In all the plots, most of the points fall close to  
+This work was limited by time and we did not have enough for a more formal modeling phase, but we have a very good sense of the data and we can conclude that it makes a lot of sense to explore this in more detail.
 
 \section{Limitations and Future Work}
 Our proposed method to quantitatively study crime rates in the city of New York intends to test the appropriateness of employing New York City TLC data and NOAA weather data as a suitable indicator for criminal activity in different New York City neighborhoods. Although the results of our study produce a considerable degree of validity, our work suffers from a few limitations. 
