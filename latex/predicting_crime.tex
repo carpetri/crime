@@ -139,6 +139,9 @@ Figure \ref{figx} shows our design flow diagram\footnote{DUMBO refers to NYU's H
 
 Getting the data was fairly easy because all three sets have APIs which provide reliable and easy access.
 
+\subsubsection{Weather data} 
+The weather dataset was the cleanest out of the three sets and contained an hour-by-hour collection of weather conditions at three station locations in New York City: Central Park, JFK airport and LaGuardia airport. 
+
 \subsubsection{Crimes data}
 There were a few anomalies that were found in the NYPD crime datasets. The two datasets (historic and current crime) at hand were for crimes that were reported from 2006 until present. However, certain records had incorrect or bad entries in the Crime Start and End Date-Time columns. For instance, there were several crimes reported to have occurred in the year 1016, which were assumed as a typological error for the year 2016. These records were fixed and used in the analytic. A few other records with year entries such as 1026 were dropped, as appropriate inferences could not be drawn. Certain records\footnote{Which make us wonder how much we should trust this dataset, but, it is what we have.} had timestamps of \texttt{24:00:00}, and were corrected to \texttt{00:00:00}.
 
@@ -220,7 +223,7 @@ Crime level can be defined at every instance of time $t$ and location $l$ as a b
 
       % \item When categorized by the \textbf{severity of crime}, is the average number of taxi pickups different in areas that have different levels of crime rates for a given level of severity in crimes?
 
-\end{enumerate}
+%\end{enumerate}
 
 \begin{figure*}
     \centering
@@ -382,8 +385,7 @@ For future work, it would be very beneficial to use Uber and Lyft data sets alon
 %\end{document}  % This is where a 'short' article might terminate
 
 
-We collected NYC taxi trip data, NYC crime data and weather data from Central Park, JFK and LaGuardia and we were able to join everything at a very granular level.
-We found evidence that suggests that our hypothesis might be true. Places that have higher levels of crime showed evidence of having a higher number of pickups, especially when taking rain into account.
+NYC taxi trip data from TLC, NYC crime data and NOAA weather data from stations at Central Park, JFK and LaGuardia were collected and analyzed. The data was loaded into NYUs Hadoop cluster and cleaned and analyzed using Spark. The datasets were joined based on date, time and zone IDs. Areas that had a higher level of crime showed evidence of a higher number of pickups and these results were more pronounced when taking rain conditions into account. Our results suggest that our hypothesis holds true. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
