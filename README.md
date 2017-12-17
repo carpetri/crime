@@ -1,4 +1,4 @@
-# Predicting crime using taxi trips data
+## Predicting crime using taxi trips data
 
 Authors:
 
