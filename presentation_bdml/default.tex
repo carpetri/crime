@@ -1,0 +1,61 @@
+\usepackage{graphicx, caption, subcaption}
+\author{Carlos Petricioli }
+
+\institute[New York University]{ New York University \\petricioli@nyu.edu }
+
+\setbeamerfont{headline}{size=\fontsize{8}{1}\selectfont}
+\setbeamertemplate{headline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=1\paperwidth,ht=2.3ex,dp=1.5ex,right]{section in head/foot}%
+    \usebeamerfont{section in head/foot}\insertsectionhead\hspace*{1ex}
+  \end{beamercolorbox}%
+  % \begin{beamercolorbox}[wd=0\paperwidth,ht=2.65ex,dp=1.5ex,right]{subsection in head/foot}%
+  %   \usebeamerfont{subsection in head/foot}\hspace*{2ex}\insertsubsectionhead
+  % \end{beamercolorbox}
+  }%
+  \vskip0pt%
+}
+
+
+% \setbeamertemplate{navigation symbols}{}
+% \setbeamertemplate{footline}[page number]
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+      \begin{beamercolorbox}[wd=1\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+          \usebeamerfont{author in head/foot}
+          \insertframenumber{} of  \inserttotalframenumber\hspace*{2ex} 
+      \end{beamercolorbox}}%
+      \vskip0pt%
+}
+
+% Set Color ==============================
+% Custom colors
+\usepackage{xcolor}
+
+%\definecolor{gold}{HTML}{FDD017}
+\definecolor{gold}{HTML}{fdde5c}
+% \definecolor{deep sky blue}{HTML}{3BB9FF}
+% \definecolor{light sky blue}{HTML}{82CAFA}
+
+\makeatletter
+\definecolor{mybackground}{HTML}{fef5d0}
+\definecolor{myforeground}{HTML}{0000A0}
+
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{alerted text}{fg=red}
+\setbeamercolor{example text}{fg=black}
+
+\setbeamercolor{block title}{bg=mybackground,fg=black}
+
+
+\setbeamercolor{background canvas}{fg=myforeground, bg=white}
+\setbeamercolor{background}{fg=myforeground, bg=mybackground}
+
+\setbeamercolor{palette primary}{fg=black, bg=gray!30!white}
+\setbeamercolor{palette secondary}{fg=black, bg=gray!20!white}
+\setbeamercolor{palette tertiary}{fg=black, bg=gold}
+\makeatother

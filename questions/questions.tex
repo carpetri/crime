@@ -1,0 +1,108 @@
+\documentclass[12pt,letterpaper,english]{article}
+\usepackage{babel}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[psamsfonts]{amssymb}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage{graphics}
+\usepackage{enumerate}
+\usepackage{amstext}
+\usepackage{url}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{hyperref} 
+\usepackage{geometry} 
+\geometry{letterpaper}
+\usepackage{setspace}
+\setstretch{1}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{assumption}{Assumption}[section]
+% \renewcommand{\headrulewidth}{.5pt} 
+% \renewcommand{\footrulewidth}{.5pt}
+\pagenumbering{arabic}
+
+% \pagestyle{fancy} 
+% \fancyhead[R]{ {\footnotesize \scshape RBDA FALL 17}}
+% % \fancyhead[C]{ \footnotesize  cpa253 / }
+% \fancyhead[L]{\footnotesize \scshape  NYU }
+
+% \fancyfoot[L]{ \footnotesize  Last update: \today}
+
+% \fancyfoot[R]{ \footnotesize  Page \thepage \ of \pageref{LastPage}}
+
+\title{Questions: Taxis \& Crime}
+\author{Carlos Petricioli}
+\date{}
+\begin{document}
+\maketitle
+
+\section{Assumptions}
+
+\begin{assumption}
+Crime occurrences will be divided into  two levels: \textit{high crime} and  \textit{low crime} with respect to the total number of observed number crimes in a given period of time which will be defined later.
+So crime level can be defined at every time $t$ an location $l$ as a binary variable for \textit{high crime} and \textit{low crime} when the total number of crime at is respectively higher and lower  than the average for that time and location.
+\end{assumption}
+
+\begin{assumption}
+To simplify things, any location is considered to have a  distance to a subway entrance equal to 
+
+\begin{itemize}
+\item  0 if the location has any number available subway entrances.
+\item  1 if any of its neighbors location has a distance of 0. 
+\item  2 in every other case.
+\end{itemize}
+\textbf{NOTE:} This assumption will be revised later to mark differences when a location has a lot vs just one entrance because it is important while making a very granular analysis.
+\end{assumption}
+
+\begin{assumption}
+Any taxi ride will be categorized as a \textit{short ride} if the distance form the pickup location to drop off location is considered as: could be walked in in less than a given time (i.e. 10 minutes) for an average person. And \textit{long ride} any other case.
+\end{assumption}
+
+
+
+
+\section{Questions}
+\begin{enumerate}
+	\item Is the average number of taxi pickups different in areas that have different levels of crime rates?
+
+	\item Is the average number of taxi pickups different in areas that have different levels of crime rates grouping by the proximity of an area to a \textbf{subway}? Any other public transportation options such as \textbf{Citibikes stations}?
+
+	\item Is the average number of taxi pickups different in areas that have different levels of crime rates when we compare at times with and without \textbf{rain} (or different weather variables)?
+
+	\item Does the average  number of \textbf{short} rides hve a different average number of taxi pickups  in areas that have different levels of crime rates  compared to the average of \textbf{long} rides?
+
+	\item Does the answer of the previous questions change for special dates such as \textbf{holidays}?
+
+	\item When categorized by the \textbf{severity of crime}, is the average number of taxi pickups different in areas that have different levels of crime rates for a given level of severity in crimes?
+
+	\item \textbf{Run away vs feel attracted} to crime. When there are ``high profiled'' crime incidents in a given location does the average number of drop offs is greater, lower or similar to the average?
+
+	\textbf{NOTE:} This is a similar question to \cite{Bendler14}. 
+
+	\item Given crime rates changes across time for a given area, is the average number of taxi pickups  changing too? If so, same direction? With a time lag?
+	does it lasts long? Does severity has an impact?
+
+	\item How does the error in the prediction of crime rates changes when modeling it with traditional demographics vs the taxi rides vs both as features? 
+
+	\textbf{NOTE:} This is the main question of the paper from KDD 2016 \cite{crimeRate}. 
+
+
+
+
+
+
+\end{enumerate}
+
+
+\bibliographystyle{ieeetr}
+\bibliography{biblio} 
+% \label{LastPage}
+\end{document}
