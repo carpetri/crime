@@ -1,12 +1,8 @@
-# Predicting crime using taxi trips data
+## Predicting crime using taxi trips data
 
 Authors:
 
 * Carlos Petricioli (cpa253@nyu.edu)
-* Valerie Angulo (vaa238@nyu.edu)
-* Varsha Muralidharan (vm1370@nyu.edu)
-
-<!-- CODE COVERAGE HERE -->
 
 ## Project Description
 
